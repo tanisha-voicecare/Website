@@ -15,6 +15,7 @@ interface HeadingProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   className?: string;
   color?: 'default' | 'muted' | 'primary' | 'white';
+  id?: string;
 }
 
 const headingSizes = {
@@ -39,9 +40,11 @@ export function Heading({
   size = 'lg',
   className = '',
   color = 'default',
+  id,
 }: HeadingProps) {
   return (
     <Component
+      id={id}
       className={`
         font-display
         ${headingSizes[size]}

@@ -21,6 +21,7 @@ interface BaseButtonProps {
   rightIcon?: ReactNode;
   fullWidth?: boolean;
   children: ReactNode;
+  className?: string;
 }
 
 interface ButtonAsButton

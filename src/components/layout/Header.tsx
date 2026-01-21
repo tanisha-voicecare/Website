@@ -60,14 +60,14 @@ export function Header() {
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex items-center">
-            {/* VoiceCare AI Logo - Text version since we don't have the image */}
-            <span className="text-xl font-bold tracking-tight">
-              <span className="text-[#06003F]">Voice</span>
-              <span className="text-[#FF4E3A]">Care</span>
-              <span className="text-[#06003F]/60 font-medium ml-1">AI</span>
-            </span>
-          </div>
+          <Image
+            src="/icons/png/logo.png"
+            alt="VoiceCare AI"
+            width={140}
+            height={32}
+            className="h-8 w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}

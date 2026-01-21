@@ -13,6 +13,7 @@
  */
 
 import Link from 'next/link';
+import Image from 'next/image';
 
 // ============================================
 // Footer Data - EXACT from designer
@@ -50,24 +51,14 @@ const footerNavigation = {
 
 function VoiceCareLogo() {
   return (
-    <Link href="/" className="flex items-center gap-2 mb-8">
-      {/* Logo Icon */}
-      <div className="w-10 h-10 rounded-full bg-[#FF4E3A] flex items-center justify-center">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M8 5v14l11-7L8 5z" fill="white" />
-        </svg>
-      </div>
-      {/* Logo Text */}
-      <span className="text-lg font-semibold text-[#06003F]">
-        Voice<span className="text-[#FF4E3A]">Care</span>{' '}
-        <span className="text-[#06003F]/60">AI</span>
-      </span>
+    <Link href="/" className="inline-block mb-8">
+      <Image
+        src="/icons/png/logo.png"
+        alt="VoiceCare AI"
+        width={160}
+        height={40}
+        className="h-10 w-auto"
+      />
     </Link>
   );
 }
