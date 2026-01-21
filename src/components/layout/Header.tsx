@@ -59,13 +59,13 @@ export function Header() {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center">
           <Image
             src="/icons/png/logo.png"
             alt="VoiceCare AI"
-            width={140}
-            height={32}
-            className="h-8 w-auto"
+            width={180}
+            height={44}
+            className="h-11 w-auto"
             priority
           />
         </Link>

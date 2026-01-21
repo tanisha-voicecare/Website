@@ -11,15 +11,15 @@ import { absoluteUrl } from './utils';
 // ============================================
 
 export const siteConfig = {
-  name: 'VoiceCare AI',
-  shortName: 'VoiceCare',
+  name: 'HealthCare Plus',
+  shortName: 'HealthCare+',
   description:
-    'Supercharging Healthcare Workers with Care and AI. Automating administrative burdens, creating time for care teams, and improving patient outcomes.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://voicecare.ai',
+    'Comprehensive healthcare services with compassionate care. Expert doctors, modern facilities, and patient-centered approach.',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://healthcare-plus.com',
   ogImage: '/og-image.jpg',
-  twitterHandle: '@voicecareai',
+  twitterHandle: '@healthcareplus',
   locale: 'en_US',
-  themeColor: '#06003F', // Brand primary
+  themeColor: '#0891b2', // Primary-600
 };
 
 // ============================================
@@ -120,16 +120,14 @@ export function generateSiteMetadata(): Metadata {
     applicationName: siteConfig.name,
     referrer: 'origin-when-cross-origin',
     keywords: [
-      'voice AI',
-      'healthcare AI',
-      'RCM automation',
-      'revenue cycle management',
-      'healthcare automation',
-      'AI agents',
-      'medical voice assistant',
-      'patient communication',
-      'healthcare workflow',
-      'administrative automation',
+      'healthcare',
+      'medical services',
+      'doctors',
+      'hospital',
+      'clinic',
+      'health',
+      'wellness',
+      'patient care',
     ],
     authors: [{ name: siteConfig.name }],
     creator: siteConfig.name,
