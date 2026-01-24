@@ -137,33 +137,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Ultra smooth scrolling with easing */
-  * {
-    scroll-behavior: smooth;
-  }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    /* Smooth transitions for all animated elements */
-    [class*="motion-"] {
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    /* Enhanced smooth scrolling */
-    html,
-    body {
-      overscroll-behavior: none;
-    }
-    
-    /* Smooth momentum scrolling */
-    * {
-      -webkit-overflow-scrolling: touch;
-    }
-  }
-
   /**
   * Default typography styles for HTML elements (h1-h4, p, label, button, input).
   * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.

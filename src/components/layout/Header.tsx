@@ -8,6 +8,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 // ============================================
 // Types
@@ -51,6 +52,7 @@ function CloseIcon({ className = '' }: { className?: string }) {
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-14 bg-white/80 backdrop-blur-md border-b border-black/[0.08]">
@@ -76,7 +78,9 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="hover:text-[#06003F] transition-colors"
+              className={`hover:text-[#06003F] transition-colors ${
+                pathname === item.href ? 'text-[#FF4E3A]' : ''
+              }`}
             >
               {item.label}
             </Link>
@@ -128,7 +132,9 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="px-4 py-3 text-[14px] font-medium text-[#06003F]/70 hover:bg-[#06003F]/5 hover:text-[#06003F] rounded-lg transition-colors"
+                  className={`px-4 py-3 text-[14px] font-medium hover:bg-[#06003F]/5 hover:text-[#06003F] rounded-lg transition-colors ${
+                    pathname === item.href ? 'text-[#FF4E3A]' : 'text-[#06003F]/70'
+                  }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}
