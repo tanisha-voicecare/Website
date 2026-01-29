@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import { Header, Footer, ScrollToTop } from '@/components/layout';
+import { Header, Footer, ScrollToTop, AnnouncementBanner } from '@/components/layout';
 import { generateSiteMetadata } from '@/lib/seo';
 import './globals.css';
 
@@ -43,6 +43,7 @@ export default function RootLayout({
         <ScrollToTop />
         <div className="flex min-h-screen flex-col">
           <Header />
+          <AnnouncementBanner />
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
