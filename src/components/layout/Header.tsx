@@ -77,12 +77,12 @@ const navigation: NavItem[] = [
   { label: 'Schedule a Demo', href: '/schedule-demo' },
 ];
 
-// Platform dropdown items for section navigation
+// Platform dropdown items - EXACT from designer-src/src/app/components/Navbar.tsx
 const platformDropdownItems = [
-  { label: 'Overview', href: '/platform#platform-hero' },
-  { label: 'Enterprise Administration', href: '/platform#platform-ehr' },
+  { label: 'What we do', href: '/platform#platform-hero' },
+  { label: 'Benefits', href: '/platform#platform-benefits' },
   { label: 'Our Solutions', href: '/platform#platform-solutions' },
-  { label: 'Platform Benefits', href: '/platform#platform-benefits' },
+  { label: 'Who we serve', href: '#', isDisabled: true }, // Page not implemented yet
 ];
 
 // ============================================
@@ -273,21 +273,31 @@ export function Header() {
                 <AnimatePresence>
                   {isPlatformDropdownOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: 8 }}
+                      initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                      className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-[#06003F]/10 py-2 z-50"
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 mt-2 w-56 bg-white backdrop-blur-md border border-[#06003F]/10 rounded-[6px] overflow-hidden z-[100]"
+                      style={{ boxShadow: '0 10px 40px rgba(6, 0, 63, 0.15)' }}
                     >
                       {platformDropdownItems.map((dropdownItem) => (
-                        <a
-                          key={dropdownItem.href}
-                          href={dropdownItem.href}
-                          onClick={(e) => handleAnchorClick(e, dropdownItem.href)}
-                          className="block px-4 py-2.5 text-[14px] text-[#06003F]/70 hover:text-[#FF4E3A] hover:bg-[#06003F]/[0.02] transition-colors"
-                        >
-                          {dropdownItem.label}
-                        </a>
+                        dropdownItem.isDisabled ? (
+                          <span
+                            key={dropdownItem.label}
+                            className="block w-full px-4 py-3 text-left text-[14px] font-medium text-[#06003F]/40 cursor-not-allowed"
+                          >
+                            {dropdownItem.label}
+                          </span>
+                        ) : (
+                          <a
+                            key={dropdownItem.href}
+                            href={dropdownItem.href}
+                            onClick={(e) => handleAnchorClick(e, dropdownItem.href)}
+                            className="block w-full px-4 py-3 text-left text-[14px] font-medium text-[#06003F] hover:bg-[#FF4E3A]/5 hover:text-[#FF4E3A] transition-colors"
+                          >
+                            {dropdownItem.label}
+                          </a>
+                        )
                       ))}
                     </motion.div>
                   )}
@@ -403,14 +413,23 @@ export function Header() {
                         >
                           <div className="pl-4 py-1">
                             {platformDropdownItems.map((dropdownItem) => (
-                              <a
-                                key={dropdownItem.href}
-                                href={dropdownItem.href}
-                                onClick={(e) => handleAnchorClick(e, dropdownItem.href)}
-                                className="block px-4 py-2.5 text-[13px] text-[#06003F]/60 hover:text-[#FF4E3A] hover:bg-[#06003F]/5 rounded-lg transition-colors"
-                              >
-                                {dropdownItem.label}
-                              </a>
+                              dropdownItem.isDisabled ? (
+                                <span
+                                  key={dropdownItem.label}
+                                  className="block px-4 py-2.5 text-[13px] text-[#06003F]/40 cursor-not-allowed"
+                                >
+                                  {dropdownItem.label}
+                                </span>
+                              ) : (
+                                <a
+                                  key={dropdownItem.href}
+                                  href={dropdownItem.href}
+                                  onClick={(e) => handleAnchorClick(e, dropdownItem.href)}
+                                  className="block px-4 py-2.5 text-[13px] text-[#06003F]/60 hover:text-[#FF4E3A] hover:bg-[#06003F]/5 rounded-lg transition-colors"
+                                >
+                                  {dropdownItem.label}
+                                </a>
+                              )
                             ))}
                           </div>
                         </motion.div>
