@@ -7,7 +7,7 @@
  * DESIGNER EXACT VALUES (DO NOT CHANGE):
  *
  * Section Container:
- * - relative pt-40 pb-24 overflow-hidden
+ * - relative pt-16 pb-24 overflow-hidden
  *
  * Gradient Background:
  * - absolute inset-y-0 left-12 right-12
@@ -38,7 +38,7 @@ import { motion } from 'motion/react';
 
 export function SecurityHero() {
   return (
-    <section className="relative pt-40 pb-24 overflow-hidden">
+    <section className="relative pt-16 pb-24 overflow-hidden">
       {/* Gradient Background */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}

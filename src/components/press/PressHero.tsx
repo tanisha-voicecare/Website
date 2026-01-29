@@ -7,7 +7,7 @@
  * DESIGNER EXACT VALUES (DO NOT CHANGE):
  *
  * Section:
- * - pt-32 pb-12 border-b border-border/50
+ * - pt-6 pb-12 border-b border-border/50
  *
  * Container:
  * - container mx-auto px-6 md:px-16 max-w-7xl
@@ -34,7 +34,7 @@ import { motion } from 'motion/react';
 
 export function PressHero() {
   return (
-    <section className="pt-32 pb-12 border-b border-[#06003F]/10">
+    <section className="pt-6 pb-12 border-b border-[#06003F]/10">
       <div className="container mx-auto px-6 md:px-16 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

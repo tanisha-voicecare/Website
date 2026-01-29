@@ -7,7 +7,7 @@
  * DESIGNER EXACT VALUES (DO NOT CHANGE):
  *
  * Header Section:
- * - pt-32 pb-16 bg-white border-b border-[#06003F]/10
+ * - pt-6 pb-16 bg-white border-b border-[#06003F]/10
  * - container mx-auto px-6 md:px-16 max-w-7xl
  *
  * Back Button:
@@ -116,7 +116,7 @@ export function JobDescription({ jobData }: JobDescriptionProps) {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <section className="pt-32 pb-16 bg-white border-b border-[#06003F]/10">
+      <section className="pt-6 pb-16 bg-white border-b border-[#06003F]/10">
         <div className="container mx-auto px-6 md:px-16 max-w-7xl">
           <Link
             href="/careers"
