@@ -188,16 +188,20 @@ export function Header() {
         {/* Desktop CTAs */}
         <div className="hidden md:flex items-center gap-4">
           <Link
-            href="/login"
+            href="https://customer.voicecare.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm font-medium text-[#06003F] hover:text-[#FF4E3A] transition-colors"
           >
             Log in
           </Link>
           <Link
-            href="/demo"
+            href="https://customer.voicecare.ai/become-a-customer"
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-sm font-medium hover:brightness-110 transition-all shadow-sm"
           >
-            Book a Demo
+            Become a Customer
           </Link>
         </div>
 
@@ -245,18 +249,22 @@ export function Header() {
               ))}
               <div className="mt-4 pt-4 border-t border-black/[0.04] space-y-3">
                 <Link
-                  href="/login"
+                  href="https://customer.voicecare.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-full px-4 py-2.5 text-sm font-medium text-[#06003F] text-center hover:bg-[#06003F]/5 rounded-lg transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Log in
                 </Link>
                 <Link
-                  href="/demo"
+                  href="https://customer.voicecare.ai/become-a-customer"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="block w-full px-4 py-2.5 bg-[#FF4E3A] text-white text-center text-sm font-medium rounded-[4px] hover:brightness-110 transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Book a Demo
+                  Become a Customer
                 </Link>
               </div>
             </div>
