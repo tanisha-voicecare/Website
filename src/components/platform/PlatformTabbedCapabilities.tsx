@@ -33,10 +33,10 @@
  * - Title: text-[32px] font-bold text-[#06003F] mb-4
  * - Video container: bg-white rounded-[12px] p-6 border border-[#06003F]/10
  * - Window dots: w-3 h-3 rounded-full (red-400, yellow-400, green-400)
- * - Video: 16:9 aspect ratio
+ * - Video: 16:9 aspect ratio with poster and controls
  */
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle2, FileText, Activity, Search, Shield, Play } from 'lucide-react';
 
@@ -50,6 +50,8 @@ interface Capability {
   label: string;
   title: string;
   description: string;
+  video: string;
+  thumbnail: string;
 }
 
 // ============================================
@@ -63,6 +65,8 @@ const capabilities: Capability[] = [
     label: 'Benefit Verification',
     title: 'Benefit Verification',
     description: 'Autonomous eligibility & coverage checks with payer systems.',
+    video: '/videos/platform/benefit-verification.mp4',
+    thumbnail: '/videos/platform/thumbnails/benefit-verification.jpg',
   },
   {
     id: 'prior-authorization',
@@ -70,6 +74,8 @@ const capabilities: Capability[] = [
     label: 'Prior Authorization',
     title: 'Prior Authorization',
     description: 'Smart determination, initiation, and follow-up across channels.',
+    video: '/videos/platform/prior-authorization.mp4',
+    thumbnail: '/videos/platform/thumbnails/prior-authorization.jpg',
   },
   {
     id: 'prescription-support',
@@ -77,6 +83,8 @@ const capabilities: Capability[] = [
     label: 'Prescription Support',
     title: 'Prescription Support',
     description: 'Context-aware verification and prior auth support workflows.',
+    video: '/videos/platform/prescription-support.mp4',
+    thumbnail: '/videos/platform/thumbnails/prescription-support.jpg',
   },
   {
     id: 'claim-status',
@@ -84,6 +92,8 @@ const capabilities: Capability[] = [
     label: 'Claim Status',
     title: 'Claim Status',
     description: 'Automated tracking and follow-ups for claim processing.',
+    video: '/videos/platform/claim-status.mp4',
+    thumbnail: '/videos/platform/thumbnails/claim-status.jpg',
   },
   {
     id: 'claim-denials',
@@ -91,8 +101,72 @@ const capabilities: Capability[] = [
     label: 'Claim Denials',
     title: 'Claim Denials',
     description: 'Intelligent denial management and appeal readiness.',
+    video: '/videos/platform/claim-denials.mp4',
+    thumbnail: '/videos/platform/thumbnails/claim-denials.jpg',
   },
 ];
+
+// ============================================
+// Video Player Component
+// ============================================
+
+function VideoPlayer({ video, thumbnail, description }: { video: string; thumbnail: string; description: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [showControls, setShowControls] = useState(false);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+      setShowControls(true);
+    }
+  };
+
+  const handleVideoEnd = () => {
+    setIsPlaying(false);
+    setShowControls(false);
+  };
+
+  const handleVideoPause = () => {
+    if (videoRef.current?.paused) {
+      setIsPlaying(false);
+    }
+  };
+
+  return (
+    <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+      {/* Video Element */}
+      <video
+        ref={videoRef}
+        src={video}
+        poster={thumbnail}
+        controls={showControls}
+        onEnded={handleVideoEnd}
+        onPause={handleVideoPause}
+        onPlay={() => setIsPlaying(true)}
+        className="absolute top-0 left-0 w-full h-full rounded-[8px] bg-[#06003F] object-contain"
+      />
+      
+      {/* Play Button Overlay (shown when not playing) */}
+      {!isPlaying && (
+        <div 
+          onClick={handlePlay}
+          className="absolute top-0 left-0 w-full h-full rounded-[8px] flex items-center justify-center cursor-pointer group"
+        >
+          {/* Play button */}
+          <div className="w-20 h-20 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center group-hover:bg-black/50 group-hover:scale-110 transition-all duration-300 shadow-lg">
+            <Play className="w-8 h-8 text-white fill-white ml-1" />
+          </div>
+          {/* Description overlay at bottom */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-[8px]">
+            <p className="text-white/90 text-[14px]">{description}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ============================================
 // Component
@@ -165,19 +239,12 @@ export function PlatformTabbedCapabilities() {
                         <div className="w-3 h-3 rounded-full bg-green-400" />
                       </div>
 
-                      {/* Video Placeholder (16:9 aspect ratio) */}
-                      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                        <div className="absolute top-0 left-0 w-full h-full rounded-[8px] bg-gradient-to-br from-[#06003F] to-[#1a0d5e] flex items-center justify-center">
-                          {/* Play button overlay */}
-                          <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all">
-                            <Play className="w-8 h-8 text-white fill-white ml-1" />
-                          </div>
-                          {/* Description overlay */}
-                          <div className="absolute bottom-6 left-6 right-6">
-                            <p className="text-white/80 text-[14px]">{cap.description}</p>
-                          </div>
-                        </div>
-                      </div>
+                      {/* Video Player */}
+                      <VideoPlayer 
+                        video={cap.video} 
+                        thumbnail={cap.thumbnail} 
+                        description={cap.description} 
+                      />
                     </div>
                   </motion.div>
                 )
