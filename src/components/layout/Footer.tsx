@@ -45,30 +45,45 @@
  */
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Linkedin, ArrowRight } from 'lucide-react';
 
 // ============================================
+// Pages that should NOT render Footer (per designer-src)
+// ============================================
+const PAGES_WITHOUT_FOOTER = ['/schedule-demo'];
+
+// ============================================
 // Footer Navigation Data - EXACT from designer-src
 // ============================================
 
-const companyLinks = [
+interface FooterLink {
+  name: string;
+  href: string;
+  isDisabled?: boolean;
+}
+
+// Company column - EXACT from designer-src
+const companyLinks: FooterLink[] = [
   { name: 'About Us', href: '/company' },
   { name: 'Our Platform', href: '/platform' },
-  // { name: 'Who We Serve', href: '/services' }, // TODO: Re-enable when services page is fully implemented
+  { name: 'Who We Serve', href: '#' }, // Page not implemented yet
+  { name: 'Schedule a Demo', href: '/schedule-demo' },
   { name: 'Press', href: '/press' },
-  { name: 'Careers', href: '/careers' },
 ];
 
-const resourcesLinks = [
-  { name: 'Pricing', href: '#' },
+// Resources column - EXACT from designer-src
+const resourcesLinks: FooterLink[] = [
+  { name: 'Pricing', href: '#', isDisabled: true }, // Page not implemented yet
   { name: 'Security', href: '/security' },
   { name: 'Careers', href: '/careers' },
-  // { name: 'Blogs', href: '/blog' }, // TODO: Re-enable when WordPress CMS is connected
+  { name: 'Blogs', href: '#', isDisabled: true }, // WordPress CMS not connected yet
 ];
 
-const legalLinks = [
+// Legal links - Privacy Policy & Terms of Service from designer-src, Cookie Policy added for compliance
+const legalLinks: FooterLink[] = [
   { name: 'Privacy Policy', href: '/privacy' },
   { name: 'Terms of Service', href: '/terms' },
   { name: 'Cookie Policy', href: '/cookies' },
@@ -79,8 +94,14 @@ const legalLinks = [
 // ============================================
 
 export function Footer() {
+  const pathname = usePathname();
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Hide footer on specific pages (per designer-src behavior)
+  if (PAGES_WITHOUT_FOOTER.includes(pathname)) {
+    return null;
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,7 +146,7 @@ export function Footer() {
               </div>
             </div>
 
-            {/* Company Column */}
+            {/* Company Column - EXACT from designer-src */}
             <div className="md:col-span-2">
               <h5 className="text-[13px] font-semibold text-[#06003F] uppercase tracking-wider mb-6">
                 Company
@@ -133,18 +154,33 @@ export function Footer() {
               <ul className="space-y-4">
                 {companyLinks.map((link) => (
                   <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-[15px] text-[#06003F]/60 hover:text-[#FF4E3A] transition-colors inline-flex items-center group"
-                    >
-                      {link.name}
-                    </Link>
+                    {link.isDisabled ? (
+                      <span className="text-[15px] text-[#06003F]/40 cursor-not-allowed">
+                        {link.name}
+                      </span>
+                    ) : link.href.startsWith('http') ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[15px] text-[#06003F]/60 hover:text-[#FF4E3A] transition-colors inline-flex items-center group"
+                      >
+                        {link.name}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-[15px] text-[#06003F]/60 hover:text-[#FF4E3A] transition-colors inline-flex items-center group"
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Resources Column */}
+            {/* Resources Column - EXACT from designer-src */}
             <div className="md:col-span-2">
               <h5 className="text-[13px] font-semibold text-[#06003F] uppercase tracking-wider mb-6">
                 Resources
@@ -152,12 +188,18 @@ export function Footer() {
               <ul className="space-y-4">
                 {resourcesLinks.map((link) => (
                   <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-[15px] text-[#06003F]/60 hover:text-[#FF4E3A] transition-colors inline-flex items-center group"
-                    >
-                      {link.name}
-                    </Link>
+                    {link.isDisabled ? (
+                      <span className="text-[15px] text-[#06003F]/40 cursor-not-allowed">
+                        {link.name}
+                      </span>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-[15px] text-[#06003F]/60 hover:text-[#FF4E3A] transition-colors inline-flex items-center group"
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -12,9 +12,9 @@
  * - flex items-center justify-between
  *
  * Background:
- * - bg-white/80
+ * - bg-background/80 (white with opacity)
  * - backdrop-blur-md
- * - border-b border-black/[0.08]
+ * - border-b border-border/50
  *
  * Scroll Behavior:
  * - Threshold: scrollY > 20
@@ -30,12 +30,18 @@
  * Logo:
  * - h-12 (48px)
  *
- * Nav Links:
+ * Nav Links (EXACT from designer-src):
  * - hidden md:flex items-center gap-8
- * - text-[14px] font-medium
- * - Default: text-[#06003F]/60
- * - Hover: text-[#06003F]
+ * - text-[14px] font-medium text-muted-foreground
+ * - Hover: text-foreground
  * - Active: text-[#FF4E3A]
+ *
+ * Navigation Items (EXACT from designer-src):
+ * - Platform
+ * - Security
+ * - Company
+ * - Partner with Us
+ * - Schedule a Demo
  *
  * CTAs:
  * - flex items-center gap-4
@@ -57,15 +63,17 @@ import { motion } from 'motion/react';
 interface NavItem {
   label: string;
   href: string;
+  isExternal?: boolean;
+  isDisabled?: boolean;
 }
 
+// Navigation items EXACT from designer-src/src/app/components/Navbar.tsx
 const navigation: NavItem[] = [
   { label: 'Platform', href: '/platform' },
   { label: 'Security', href: '/security' },
   { label: 'Company', href: '/company' },
-  // { label: 'Blogs', href: '/blog' }, // TODO: Re-enable when WordPress CMS is connected
-  { label: 'Press', href: '/press' },
-  // { label: 'Docs', href: '/docs' }, // TODO: Re-enable when docs are available
+  { label: 'Partner with Us', href: '/' }, // Page not implemented yet
+  { label: 'Schedule a Demo', href: '/schedule-demo' },
 ];
 
 // ============================================
@@ -170,19 +178,38 @@ export function Header() {
           />
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation - EXACT from designer-src */}
         <div className="hidden md:flex items-center gap-8 text-[14px] font-medium text-[#06003F]/60">
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`hover:text-[#06003F] transition-colors ${
-                pathname === item.href ? 'text-[#FF4E3A]' : ''
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navigation.map((item) =>
+            item.isDisabled ? (
+              <span
+                key={item.label}
+                className="text-[14px] text-[#06003F]/40 cursor-not-allowed"
+              >
+                {item.label}
+              </span>
+            ) : item.isExternal ? (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[14px] hover:text-[#06003F] transition-colors"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`text-[14px] hover:text-[#06003F] transition-colors ${
+                  pathname === item.href ? 'text-[#FF4E3A]' : ''
+                }`}
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </div>
 
         {/* Desktop CTAs */}
@@ -233,20 +260,40 @@ export function Header() {
         >
           <div className="px-6 py-4">
             <div className="flex flex-col gap-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`px-4 py-3 text-[14px] font-medium hover:bg-[#06003F]/5 hover:text-[#06003F] rounded-lg transition-colors ${
-                    pathname === item.href
-                      ? 'text-[#FF4E3A]'
-                      : 'text-[#06003F]/70'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navigation.map((item) =>
+                item.isDisabled ? (
+                  <span
+                    key={item.label}
+                    className="px-4 py-3 text-[14px] font-medium text-[#06003F]/40 cursor-not-allowed"
+                  >
+                    {item.label}
+                  </span>
+                ) : item.isExternal ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-3 text-[14px] font-medium text-[#06003F]/70 hover:bg-[#06003F]/5 hover:text-[#06003F] rounded-lg transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`px-4 py-3 text-[14px] font-medium hover:bg-[#06003F]/5 hover:text-[#06003F] rounded-lg transition-colors ${
+                      pathname === item.href
+                        ? 'text-[#FF4E3A]'
+                        : 'text-[#06003F]/70'
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
               <div className="mt-4 pt-4 border-t border-black/[0.04] space-y-3">
                 <Link
                   href="https://customer.voicecare.ai/"
