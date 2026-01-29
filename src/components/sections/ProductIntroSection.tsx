@@ -67,6 +67,7 @@
  * - All use ease: [0.23, 1, 0.32, 1]
  */
 
+import Link from 'next/link';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 
@@ -175,24 +176,22 @@ export function ProductIntroSection({ className = '' }: ProductIntroSectionProps
             transition={{ duration: 0.6, delay: 0.4, ease: [0.23, 1, 0.32, 1] }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
-            {/* Primary Button */}
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2, transition: { duration: 0.3 } }}
-              whileTap={{ scale: 0.98 }}
+            {/* Primary CTA */}
+            <Link
+              href="#experience"
               className="w-full sm:w-auto bg-[#FF4E3A] text-white px-8 py-3.5 rounded-[6px] text-sm font-semibold hover:brightness-110 transition-all flex items-center justify-center gap-2 group shadow-2xl shadow-[#FF4E3A]/20 hover:shadow-[#FF4E3A]/40"
             >
               Experience It
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+            </Link>
 
-            {/* Secondary Button */}
-            <motion.button
-              whileHover={{ scale: 1.05, y: -2, transition: { duration: 0.3 } }}
-              whileTap={{ scale: 0.98 }}
+            {/* Secondary CTA */}
+            <Link
+              href="/demo"
               className="w-full sm:w-auto px-8 py-3.5 text-sm font-semibold text-white/80 hover:text-white border border-white/10 hover:border-white/20 hover:bg-white/5 rounded-[6px] transition-all shadow-sm"
             >
               Schedule a Demo
-            </motion.button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

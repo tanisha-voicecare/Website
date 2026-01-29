@@ -20,11 +20,14 @@ import {
   PrinciplesSection,
   AdvisorsSection,
 } from '@/components/company';
+import { generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: 'Company',
-  description: 'Learn about VoiceCare AI - Supercharging healthcare administration with Artificial Intelligence. Meet our team, advisors, and investors.',
-};
+  description:
+    'Learn about VoiceCare AI and our mission to supercharge healthcare administration with Artificial Intelligence. Meet our leadership team, advisors, and investors.',
+  pathname: '/company',
+});
 
 export default function CompanyPage() {
   return (

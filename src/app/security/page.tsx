@@ -16,11 +16,14 @@ import {
   SecurityCertifications,
   SecurityCompliance,
 } from '@/components/security';
+import { generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: 'Security',
-  description: 'VoiceCare AI security and compliance - SOC 2 Type II attested, HIPAA-compliant healthcare data protection.',
-};
+  description:
+    'VoiceCare AI security and compliance. SOC 2 Type II attested and HIPAA-compliant healthcare data protection ensuring maximum security for sensitive patient information.',
+  pathname: '/security',
+});
 
 export default function SecurityPage() {
   return (

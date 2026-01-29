@@ -134,9 +134,10 @@ export function CEOQuoteSection() {
             <div className="relative rounded-[12px] overflow-hidden border border-white/10">
               <Image
                 src="/images/company/ceo/parag-jhaveri.png"
-                alt="Parag Jhaveri - CEO & Founder"
+                alt="Parag Jhaveri - CEO and Founder of VoiceCare AI"
                 width={600}
                 height={750}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="w-full h-auto object-cover aspect-[4/5] group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#FF4E3A]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

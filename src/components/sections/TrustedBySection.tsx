@@ -148,9 +148,10 @@ export function TrustedBySection({ className = '' }: TrustedBySectionProps) {
             >
               <Image
                 src={logo.src}
-                alt={logo.name}
+                alt={`${logo.name} logo`}
                 width={logo.size === 'large' ? 160 : 120}
                 height={logo.size === 'large' ? 48 : 32}
+                sizes="(max-width: 768px) 100px, 160px"
                 className={`w-auto object-contain grayscale brightness-75 hover:grayscale-0 hover:brightness-100 transition-all duration-300 cursor-pointer ${
                   logo.size === 'large'
                     ? 'h-10 md:h-12 max-h-10 md:max-h-12'

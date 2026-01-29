@@ -18,11 +18,14 @@ import {
   PlatformTabbedCapabilities,
   PlatformBenefits,
 } from '@/components/platform';
+import { generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generatePageMetadata({
   title: 'Platform',
-  description: 'Discover VoiceCare AI platform - AI-powered healthcare administration automation for benefit verification, prior authorization, and more.',
-};
+  description:
+    'Discover the VoiceCare AI platform powered by Healthcare Administration General Intelligence (HAGI). Automate benefit verification, prior authorization, and routine back-office workflows with Generative and Conversational AI.',
+  pathname: '/platform',
+});
 
 export default function PlatformPage() {
   return (

@@ -161,9 +161,10 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/icons/png/logo.png"
-            alt="VoiceCare AI"
+            alt="VoiceCare AI logo"
             width={180}
             height={48}
+            sizes="180px"
             className="h-12 w-auto"
             priority
           />

@@ -79,9 +79,10 @@ export function SecurityCertifications() {
           >
             <Image
               src="/images/security/certifications/certification-shields.png"
-              alt="HIPAA Compliant and AICPA SOC 2 Certifications"
+              alt="HIPAA Compliant and AICPA SOC 2 Type II Certification badges"
               width={450}
               height={200}
+              sizes="(max-width: 768px) 100vw, 450px"
               className="w-full max-w-[450px] h-auto relative z-10"
               priority
             />

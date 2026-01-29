@@ -214,8 +214,9 @@ export function AdvisorsSection() {
                   <div className="aspect-[3/4] relative">
                     <Image
                       src={advisor.image}
-                      alt={advisor.name}
+                      alt={`Photo of ${advisor.name}`}
                       fill
+                      sizes="280px"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
 
@@ -305,8 +306,9 @@ export function AdvisorsSection() {
                       <div className="aspect-[3/4] relative">
                         <Image
                           src={advisors[selectedAdvisor].image}
-                          alt={advisors[selectedAdvisor].name}
+                          alt={`Photo of ${advisors[selectedAdvisor].name}`}
                           fill
+                          sizes="320px"
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -345,6 +347,7 @@ export function AdvisorsSection() {
                                 alt={logo.alt}
                                 width={100}
                                 height={40}
+                                sizes="100px"
                                 className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                               />
                             ))}

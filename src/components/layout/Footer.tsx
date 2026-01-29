@@ -101,9 +101,10 @@ export function Footer() {
               <Link href="/">
                 <Image
                   src="/icons/png/logo.png"
-                  alt="VoiceCare AI"
+                  alt="VoiceCare AI logo"
                   width={200}
                   height={80}
+                  sizes="200px"
                   className="h-20 w-auto mb-8"
                 />
               </Link>
@@ -218,9 +219,10 @@ export function Footer() {
             <div className="flex items-center gap-4">
               <Image
                 src="/images/icons/soc-hipaa-badges.png"
-                alt="SOC and HIPAA Compliant"
+                alt="SOC 2 Type II and HIPAA Compliance badges"
                 width={200}
                 height={80}
+                sizes="200px"
                 className="h-20 w-auto"
                 onError={(e) => {
                   // Hide if image doesn't exist
