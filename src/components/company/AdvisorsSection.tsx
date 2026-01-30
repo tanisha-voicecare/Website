@@ -163,22 +163,22 @@ export function AdvisorsSection() {
   const [selectedAdvisor, setSelectedAdvisor] = useState<number | null>(null);
 
   return (
-    <section className="relative py-[60px] bg-white">
-      <div className="container mx-auto px-6 md:px-16 max-w-7xl">
+    <section className="relative py-10 sm:py-12 md:py-[60px] bg-white overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-20"
+          className="text-center mb-10 sm:mb-14 md:mb-20"
         >
           <motion.h2
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="text-[48px] font-bold text-[#06003F] mb-4"
+            className="text-[32px] sm:text-[40px] md:text-[48px] font-bold text-[#06003F] mb-3 sm:mb-4"
           >
             Our Advisors & Investors
           </motion.h2>
@@ -187,7 +187,7 @@ export function AdvisorsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.15 }}
-            className="text-[18px] text-[#06003F]/60 max-w-3xl mx-auto"
+            className="text-[15px] sm:text-[16px] md:text-[18px] text-[#06003F]/60 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto px-2"
           >
             Backed by industry leaders who share our vision for transforming
             healthcare administration
@@ -195,8 +195,8 @@ export function AdvisorsSection() {
         </motion.div>
 
         {/* Horizontal Scroll Container */}
-        <div className="overflow-x-auto scrollbar-hide -mx-6 md:-mx-16 px-6 md:px-16">
-          <div className="flex gap-6 pb-6" style={{ width: 'max-content' }}>
+        <div className="overflow-x-auto scrollbar-hide overscroll-x-contain -mx-4 sm:-mx-6 md:-mx-12 lg:-mx-16 px-4 sm:px-6 md:px-12 lg:px-16 [-webkit-overflow-scrolling:touch]">
+          <div className="flex gap-4 sm:gap-5 md:gap-6 pb-4 sm:pb-6 pr-4 sm:pr-6" style={{ width: 'max-content' }}>
             {advisors.map((advisor, index) => (
               <motion.div
                 key={index}
@@ -205,18 +205,17 @@ export function AdvisorsSection() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.06 }}
                 whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.2 } }}
-                className="group flex-shrink-0 cursor-pointer"
-                style={{ width: '280px' }}
+                className="group flex-shrink-0 cursor-pointer w-[220px] sm:w-[250px] md:w-[280px]"
                 onClick={() => setSelectedAdvisor(index)}
               >
                 {/* Photo Card */}
-                <div className="relative bg-white rounded-[12px] overflow-hidden mb-5 transition-all duration-200">
+                <div className="relative bg-white rounded-[12px] overflow-hidden mb-4 sm:mb-5 transition-all duration-200">
                   <div className="aspect-[3/4] relative">
                     <Image
                       src={advisor.image}
                       alt={`Photo of ${advisor.name}`}
                       fill
-                      sizes="280px"
+                      sizes="(max-width: 640px) 220px, (max-width: 768px) 250px, 280px"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
 
@@ -225,7 +224,7 @@ export function AdvisorsSection() {
 
                     {/* "View Details" text on hover */}
                     <div className="absolute bottom-4 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <span className="text-white text-[13px] font-semibold">
+                      <span className="text-white text-[12px] sm:text-[13px] font-semibold">
                         View Details
                       </span>
                     </div>
@@ -235,10 +234,10 @@ export function AdvisorsSection() {
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-4 left-4"
+                    className="absolute top-3 left-3 sm:top-4 sm:left-4"
                   >
                     <span
-                      className={`px-3 py-1.5 rounded-[6px] text-[10px] font-bold uppercase tracking-wider ${
+                      className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-[6px] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider ${
                         advisor.role === 'Investor'
                           ? 'bg-[#FF4E3A] text-white'
                           : advisor.role === 'Board Member'
@@ -253,10 +252,10 @@ export function AdvisorsSection() {
 
                 {/* Info Section */}
                 <div>
-                  <h3 className="text-[20px] font-bold text-[#06003F] mb-1 group-hover:text-[#FF4E3A] transition-colors duration-200">
+                  <h3 className="text-[17px] sm:text-[18px] md:text-[20px] font-bold text-[#06003F] mb-1 group-hover:text-[#FF4E3A] transition-colors duration-200">
                     {advisor.name}
                   </h3>
-                  <p className="text-[13px] text-[#06003F]/50 leading-relaxed line-clamp-2">
+                  <p className="text-[12px] sm:text-[13px] text-[#06003F]/50 leading-relaxed line-clamp-2">
                     {advisor.designation}
                   </p>
                 </div>
@@ -280,35 +279,35 @@ export function AdvisorsSection() {
               onClick={() => setSelectedAdvisor(null)}
             />
 
-            {/* Modal Content Wrapper - using flexbox for centering to avoid conflict with framer-motion transforms */}
-            <div className="fixed inset-0 z-[101] flex items-center justify-center pointer-events-none">
+            {/* Modal Content Wrapper - using flexbox for centering */}
+            <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                className="w-[90vw] max-w-[900px] max-h-[85vh] bg-white rounded-[12px] overflow-hidden pointer-events-auto"
+                className="w-full max-w-[560px] md:max-w-[900px] max-h-[85vh] bg-white rounded-[12px] sm:rounded-[16px] overflow-hidden pointer-events-auto relative"
               >
-              {/* Close Button */}
+              {/* Close Button - sticky position */}
               <button
                 onClick={() => setSelectedAdvisor(null)}
-                className="absolute top-6 right-6 z-10 text-[#06003F]/40 hover:text-[#06003F] transition-colors duration-200"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#06003F]/5 text-[#06003F]/60 hover:bg-[#06003F]/10 hover:text-[#06003F] transition-all duration-200"
               >
-                <X size={24} />
+                <X size={20} className="sm:w-6 sm:h-6" />
               </button>
 
               {/* Scrollable Content */}
-              <div className="overflow-y-auto max-h-[85vh] p-10 md:p-12">
-                <div className="relative grid md:grid-cols-[320px_1fr] gap-10">
+              <div className="overflow-y-auto max-h-[85vh] p-5 sm:p-8 md:p-10 lg:p-12">
+                <div className="relative grid grid-cols-1 md:grid-cols-[280px_1fr] lg:grid-cols-[320px_1fr] gap-6 sm:gap-8 md:gap-10 pt-6 sm:pt-0">
                   {/* Left: Photo */}
-                  <div>
+                  <div className="mx-auto md:mx-0 w-full max-w-[240px] sm:max-w-[280px] md:max-w-none">
                     <div className="relative bg-white rounded-[12px] overflow-hidden mb-4">
                       <div className="aspect-[3/4] relative">
                         <Image
                           src={advisors[selectedAdvisor].image}
                           alt={`Photo of ${advisors[selectedAdvisor].name}`}
                           fill
-                          sizes="320px"
+                          sizes="(max-width: 640px) 240px, (max-width: 768px) 280px, 320px"
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -316,19 +315,19 @@ export function AdvisorsSection() {
                   </div>
 
                   {/* Right: Details */}
-                  <div>
-                    <h2 className="text-[36px] font-bold text-[#06003F] mb-2">
+                  <div className="text-center md:text-left">
+                    <h2 className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-bold text-[#06003F] mb-2">
                       {advisors[selectedAdvisor].name}
                     </h2>
-                    <p className="text-[16px] text-[#06003F]/60 mb-8 leading-relaxed">
+                    <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#06003F]/60 mb-6 sm:mb-8 leading-relaxed">
                       {advisors[selectedAdvisor].designation}
                     </p>
 
-                    <div className="mb-8 pb-8 border-b border-[#06003F]/10">
-                      <h3 className="text-[12px] font-bold uppercase tracking-widest text-[#06003F]/40 mb-3">
+                    <div className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-[#06003F]/10">
+                      <h3 className="text-[11px] sm:text-[12px] font-bold uppercase tracking-widest text-[#06003F]/40 mb-2 sm:mb-3">
                         About
                       </h3>
-                      <p className="text-[15px] text-[#06003F]/80 leading-relaxed">
+                      <p className="text-[14px] sm:text-[15px] text-[#06003F]/80 leading-relaxed">
                         {advisors[selectedAdvisor].description}
                       </p>
                     </div>
@@ -336,10 +335,10 @@ export function AdvisorsSection() {
                     {advisors[selectedAdvisor].logos &&
                       advisors[selectedAdvisor].logos.length > 0 && (
                         <div>
-                          <h3 className="text-[12px] font-bold uppercase tracking-widest text-[#06003F]/40 mb-4">
+                          <h3 className="text-[11px] sm:text-[12px] font-bold uppercase tracking-widest text-[#06003F]/40 mb-3 sm:mb-4">
                             Affiliations
                           </h3>
-                          <div className="flex gap-6 items-center flex-wrap">
+                          <div className="flex gap-4 sm:gap-6 items-center flex-wrap justify-center md:justify-start">
                             {advisors[selectedAdvisor].logos.map((logo, idx) => (
                               <Image
                                 key={idx}
@@ -347,8 +346,8 @@ export function AdvisorsSection() {
                                 alt={logo.alt}
                                 width={100}
                                 height={40}
-                                sizes="100px"
-                                className="h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                                sizes="80px"
+                                className="h-8 sm:h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                               />
                             ))}
                           </div>

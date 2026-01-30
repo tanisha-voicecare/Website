@@ -126,22 +126,22 @@ const principles: Principle[] = [
 
 export function PrinciplesSection() {
   return (
-    <section className="relative py-[110px] bg-[#FAFBFC] px-[0px]">
-      <div className="container mx-auto px-6 md:px-16 max-w-6xl relative z-10">
+    <section className="relative py-14 sm:py-20 md:py-[110px] bg-[#FAFBFC] px-4 sm:px-6 md:px-12">
+      <div className="container mx-auto max-w-6xl relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-10 md:mb-12"
         >
           <motion.h2
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="text-[48px] font-bold text-[#06003F] mb-4"
+            className="text-[32px] sm:text-[40px] md:text-[48px] font-bold text-[#06003F] mb-3 sm:mb-4"
           >
             Our Operating Principles
           </motion.h2>
@@ -150,7 +150,7 @@ export function PrinciplesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.15 }}
-            className="text-[18px] text-[#06003F]/60 max-w-2xl mx-auto"
+            className="text-[15px] sm:text-[16px] md:text-[18px] text-[#06003F]/60 max-w-xl sm:max-w-2xl mx-auto px-2"
           >
             Core principles that guide how we build, ship, and deliver
             excellence.
@@ -158,7 +158,7 @@ export function PrinciplesSection() {
         </motion.div>
 
         {/* Principles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-5 mt-8 sm:mt-12 md:mt-16">
           {principles.map((principle, index) => {
             const Icon = principle.icon;
 
@@ -170,28 +170,28 @@ export function PrinciplesSection() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.2 } }}
-                className="group cursor-default"
+                className="group cursor-default will-change-transform"
               >
                 {/* Card Container */}
-                <div className="bg-white rounded-[12px] p-8 h-full border border-[#06003F]/5 hover:border-[#06003F]/10 transition-colors duration-200">
+                <div className="bg-white rounded-[12px] p-5 sm:p-6 md:p-7 lg:p-8 h-full border border-[#06003F]/5 hover:border-[#06003F]/10 transition-colors duration-200">
                   {/* Icon */}
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 15 }}
-                    className="w-12 h-12 rounded-[6px] bg-[#06003F]/5 flex items-center justify-center group-hover:bg-[#FF4E3A]/10 transition-colors duration-200 mb-5"
+                    className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-[6px] bg-[#06003F]/5 flex items-center justify-center group-hover:bg-[#FF4E3A]/10 transition-colors duration-200 mb-4 sm:mb-5"
                   >
                     <Icon
-                      className="w-6 h-6 text-[#06003F]/70 group-hover:text-[#FF4E3A] transition-colors duration-200"
+                      className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6 text-[#06003F]/70 group-hover:text-[#FF4E3A] transition-colors duration-200"
                       strokeWidth={2}
                     />
                   </motion.div>
 
                   {/* Content */}
                   <div>
-                    <h3 className="text-[18px] font-bold text-[#06003F] mb-3 leading-tight group-hover:text-[#FF4E3A] transition-colors duration-200">
+                    <h3 className="text-[16px] sm:text-[17px] md:text-[18px] font-bold text-[#06003F] mb-2 sm:mb-3 leading-tight group-hover:text-[#FF4E3A] transition-colors duration-200">
                       {principle.title}
                     </h3>
-                    <p className="text-[15px] text-[#06003F]/60 leading-relaxed group-hover:text-[#06003F]/80 transition-colors duration-200">
+                    <p className="text-[14px] sm:text-[14px] md:text-[15px] text-[#06003F]/60 leading-relaxed group-hover:text-[#06003F]/80 transition-colors duration-200">
                       {principle.description}
                     </p>
                   </div>
