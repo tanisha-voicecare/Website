@@ -22,9 +22,9 @@ export const metadata: Metadata = generatePageMetadata({
 
 export default function PressPage() {
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       <PressHero />
       <PressCoverage />
-    </>
+    </div>
   );
 }

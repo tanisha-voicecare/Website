@@ -146,19 +146,19 @@ export function PressCoverage() {
   if (featuredItems.length === 0) return null;
 
   return (
-    <section className="py-16 border-b border-[#06003F]/10">
-      <div className="container mx-auto px-6 md:px-16 max-w-7xl">
+    <section className="py-10 sm:py-12 md:py-16 border-b border-[#06003F]/10">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-12"
+          className="mb-8 sm:mb-10 md:mb-12"
         >
-          <h2 className="text-[48px] font-bold tracking-tight text-[#06003F]">Recent Coverage</h2>
+          <h2 className="text-[32px] sm:text-[40px] md:text-[48px] font-bold tracking-tight text-[#06003F]">Recent Coverage</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           {featuredItems.map((item, index) => {
             // Split quote into paragraphs (EXACT logic from designer-src)
             const paragraphs = item.quote.split('\n\n');
@@ -176,20 +176,21 @@ export function PressCoverage() {
                   delay: index * 0.1,
                 }}
                 whileHover={{ y: -8 }}
-                className="group cursor-pointer bg-white border border-[#06003F]/5 rounded-[12px] p-8 hover:border-[#FF4E3A]/20 transition-all duration-500 flex flex-col"
+                className="group cursor-pointer bg-white border border-[#06003F]/5 rounded-[12px] p-5 sm:p-6 md:p-7 lg:p-8 hover:border-[#FF4E3A]/20 transition-all duration-500 flex flex-col w-full min-w-0 overflow-hidden"
               >
-                <div className="mb-8">
+                {/* Logo container with fixed height for alignment */}
+                <div className="h-10 sm:h-12 md:h-14 lg:h-16 flex items-center mb-5 sm:mb-6 md:mb-8 shrink-0">
                   <Image
                     src={item.logo}
                     alt={item.outlet}
                     width={200}
                     height={64}
-                    className="h-16 w-auto object-contain object-left"
+                    className="max-h-10 sm:max-h-12 md:max-h-14 lg:max-h-16 w-auto object-contain object-left shrink-0"
                   />
                 </div>
 
-                <blockquote className="flex-1 mb-6">
-                  <p className="text-[15px] text-[#06003F] leading-[1.6] whitespace-pre-line">
+                <blockquote className="flex-1 mb-4 sm:mb-5 md:mb-6 min-w-0">
+                  <p className="text-[14px] sm:text-[15px] text-[#06003F] leading-[1.6] whitespace-pre-line break-words [overflow-wrap:anywhere]">
                     <span className="font-bold">{firstParagraph}</span>
                     {restOfQuote && (
                       <>
@@ -200,16 +201,17 @@ export function PressCoverage() {
                   </p>
                 </blockquote>
 
-                <div className="flex items-center justify-between">
-                  <span className="text-[13px] font-medium text-[#06003F]/70">{item.outlet}</span>
+                {/* Bottom row: outlet + link - stacks on mobile */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 min-w-0">
+                  <span className="text-[12px] sm:text-[13px] font-medium text-[#06003F]/70">{item.outlet}</span>
                   <a
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[#FF4E3A] font-medium text-[13px] group-hover:gap-3 transition-all"
+                    className="inline-flex items-center gap-2 text-[#FF4E3A] font-medium text-[12px] sm:text-[13px] group-hover:gap-3 transition-all whitespace-nowrap shrink-0"
                   >
                     Read Article
-                    <ArrowUpRight className="w-4 h-4" />
+                    <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </a>
                 </div>
               </motion.div>
