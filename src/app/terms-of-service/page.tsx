@@ -23,7 +23,7 @@ export const metadata: Metadata = generatePageMetadata({
 
 export default function TermsOfServicePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background w-full overflow-x-hidden">
       <TermsHeader />
       <TermsContent />
     </div>
