@@ -297,10 +297,10 @@ export function WhoWeServeTabs() {
   const currentContent = getTabContent(activeTab);
 
   return (
-    <section className="py-24 bg-white">
-      <div className="container mx-auto px-6 md:px-16 max-w-7xl">
-        {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
+    <section className="py-14 sm:py-18 md:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl">
+        {/* Tab Navigation - horizontal scroll on mobile */}
+        <div className="flex overflow-x-auto md:overflow-visible md:flex-wrap md:justify-center gap-2 sm:gap-3 md:gap-4 mb-10 sm:mb-12 md:mb-16 pb-2 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0 overscroll-x-contain [-webkit-overflow-scrolling:touch] scrollbar-hide">
           {tabs.map((tab, index) => (
             <motion.button
               key={tab.id}
@@ -313,10 +313,10 @@ export function WhoWeServeTabs() {
               onClick={() => setActiveTab(tab.id)}
               aria-selected={activeTab === tab.id}
               role="tab"
-              className={`px-6 py-3 rounded-[6px] text-[14px] font-semibold transition-all ${
+              className={`px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 rounded-[6px] text-[12px] sm:text-[13px] md:text-[14px] font-semibold transition-all whitespace-nowrap min-w-max flex-shrink-0 md:flex-shrink ${
                 activeTab === tab.id
                   ? 'bg-[#FF4E3A] text-white'
-                  : 'bg-white border border-[#06003F]/10 text-[#06003F] hover:border-[#FF4E3A]/30'
+                  : 'bg-[#F5F5F7] md:bg-white border border-[#06003F]/10 text-[#06003F] hover:border-[#FF4E3A]/30'
               }`}
             >
               {tab.label}
@@ -332,17 +332,17 @@ export function WhoWeServeTabs() {
           transition={{ duration: 0.5 }}
         >
           {/* Title and Subtitle */}
-          <div className="text-center mb-12">
-            <h2 className="text-[48px] font-bold text-[#06003F] tracking-tight leading-[1.1] mb-4">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] font-bold text-[#06003F] tracking-tight leading-[1.1] mb-3 sm:mb-4">
               {currentContent.title}
             </h2>
-            <p className="text-[16px] text-[#06003F]/60 max-w-3xl mx-auto">
+            <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#06003F]/60 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto leading-relaxed px-2">
               {currentContent.subtitle}
             </p>
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
             {currentContent.cards.map((card, index) => {
               const IconComponent = card.icon;
               return (
@@ -355,20 +355,20 @@ export function WhoWeServeTabs() {
                     delay: index * 0.1,
                   }}
                   whileHover={{ y: -8 }}
-                  className="group bg-white border border-[#06003F]/10 rounded-[12px] p-8 hover:border-[#FF4E3A]/30 transition-all duration-300"
+                  className="group bg-white border border-[#06003F]/10 rounded-[12px] p-5 sm:p-6 md:p-7 lg:p-8 hover:border-[#FF4E3A]/30 transition-all duration-300 w-full min-w-0 overflow-hidden will-change-transform"
                 >
-                  <div className="w-14 h-14 rounded-[12px] bg-[#FF4E3A] flex items-center justify-center mb-6">
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-[10px] sm:rounded-[12px] bg-[#FF4E3A] flex items-center justify-center mb-4 sm:mb-5 md:mb-6 shrink-0">
                     <IconComponent
-                      className="w-6 h-6 text-white"
+                      className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6 text-white"
                       strokeWidth={2}
                     />
                   </div>
 
-                  <h3 className="text-[24px] font-bold text-[#06003F] mb-4 group-hover:text-[#FF4E3A] transition-colors">
+                  <h3 className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] font-bold text-[#06003F] mb-3 sm:mb-4 group-hover:text-[#FF4E3A] transition-colors">
                     {card.title}
                   </h3>
 
-                  <p className="text-[16px] text-[#06003F]/60 leading-relaxed">
+                  <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#06003F]/60 leading-relaxed">
                     {card.description}
                   </p>
                 </motion.div>
