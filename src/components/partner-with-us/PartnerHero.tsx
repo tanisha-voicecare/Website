@@ -31,18 +31,20 @@ import { motion } from 'motion/react';
 
 export function PartnerHero() {
   return (
-    <section className="container mx-auto px-6 md:px-16 max-w-7xl pt-20">
+    <section className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl pt-12 sm:pt-16 md:pt-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center max-w-4xl mx-auto mb-16"
+        className="text-center max-w-4xl mx-auto mb-10 sm:mb-12 md:mb-16"
       >
-        <h1 className="text-[48px] leading-[1.1] mb-[24px] font-bold text-[#06003F] mt-[-45px] mr-[0px] ml-[0px]">
+        <h1 className="text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] mb-[16px] sm:mb-[20px] md:mb-[24px] font-bold text-[#06003F] mt-[-25px] sm:mt-[-35px] md:mt-[-45px]">
           Partner with Us
         </h1>
-        <p className="text-[16px] text-[#06003F]/60 leading-relaxed">
-          Collaborating with VoiceCare will drive mutual growth and success. Fill out the form below to explore<br />
+        <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#06003F]/60 leading-relaxed max-w-[60ch] mx-auto px-2">
+          Collaborating with VoiceCare will drive mutual growth and success. Fill out the form below to explore
+          <span className="hidden sm:inline"><br /></span>
+          <span className="sm:hidden"> </span>
           partnership opportunities and embark on a journey toward shaping the future of healthcare together.
         </p>
       </motion.div>

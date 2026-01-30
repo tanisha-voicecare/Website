@@ -71,18 +71,18 @@ export function PartnerForm() {
   };
 
   return (
-    <section className="container mx-auto px-6 md:px-16 max-w-7xl pb-20">
+    <section className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl pb-12 sm:pb-16 md:pb-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         className="max-w-4xl mx-auto"
       >
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
           {/* Name and Organisation Name - Row 1 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="name" className="block text-[14px] font-medium mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+            <div className="space-y-1.5 sm:space-y-2">
+              <label htmlFor="name" className="block text-[13px] sm:text-[14px] font-medium">
                 Name <span className="text-[#FF4E3A]">*</span>
               </label>
               <input
@@ -92,13 +92,13 @@ export function PartnerForm() {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors text-base md:text-[inherit]"
                 placeholder="Enter your name"
               />
             </div>
 
-            <div>
-              <label htmlFor="organisationName" className="block text-[14px] font-medium mb-2">
+            <div className="space-y-1.5 sm:space-y-2">
+              <label htmlFor="organisationName" className="block text-[13px] sm:text-[14px] font-medium">
                 Organisation Name <span className="text-[#FF4E3A]">*</span>
               </label>
               <input
@@ -108,16 +108,16 @@ export function PartnerForm() {
                 required
                 value={formData.organisationName}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors text-base md:text-[inherit]"
                 placeholder="Enter your organisation name"
               />
             </div>
           </div>
 
           {/* Department and Industry Vertical - Row 2 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="department" className="block text-[14px] font-medium mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+            <div className="space-y-1.5 sm:space-y-2">
+              <label htmlFor="department" className="block text-[13px] sm:text-[14px] font-medium">
                 Department <span className="text-[#FF4E3A]">*</span>
               </label>
               <input
@@ -127,13 +127,13 @@ export function PartnerForm() {
                 required
                 value={formData.department}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors text-base md:text-[inherit]"
                 placeholder="Enter your department"
               />
             </div>
 
-            <div>
-              <label htmlFor="industryVertical" className="block text-[14px] font-medium mb-2">
+            <div className="space-y-1.5 sm:space-y-2">
+              <label htmlFor="industryVertical" className="block text-[13px] sm:text-[14px] font-medium">
                 Industry Vertical <span className="text-[#FF4E3A]">*</span>
               </label>
               <input
@@ -143,16 +143,16 @@ export function PartnerForm() {
                 required
                 value={formData.industryVertical}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors text-base md:text-[inherit]"
                 placeholder="e.g., Healthcare, Finance, Retail"
               />
             </div>
           </div>
 
           {/* Email and Phone Number - Row 3 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="email" className="block text-[14px] font-medium mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+            <div className="space-y-1.5 sm:space-y-2">
+              <label htmlFor="email" className="block text-[13px] sm:text-[14px] font-medium">
                 Email Address <span className="text-[#FF4E3A]">*</span>
               </label>
               <input
@@ -162,13 +162,13 @@ export function PartnerForm() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors text-base md:text-[inherit]"
                 placeholder="Enter your email address"
               />
             </div>
 
-            <div>
-              <label htmlFor="phoneNumber" className="block text-[14px] font-medium mb-2">
+            <div className="space-y-1.5 sm:space-y-2">
+              <label htmlFor="phoneNumber" className="block text-[13px] sm:text-[14px] font-medium">
                 Phone Number <span className="text-[#FF4E3A]">*</span>
               </label>
               <input
@@ -178,15 +178,15 @@ export function PartnerForm() {
                 required
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors text-base md:text-[inherit]"
                 placeholder="Enter your phone number"
               />
             </div>
           </div>
 
           {/* How can I help? - Full Width */}
-          <div>
-            <label htmlFor="howCanIHelp" className="block text-[14px] font-medium mb-2">
+          <div className="space-y-1.5 sm:space-y-2">
+            <label htmlFor="howCanIHelp" className="block text-[13px] sm:text-[14px] font-medium">
               How can I help?
             </label>
             <textarea
@@ -195,16 +195,16 @@ export function PartnerForm() {
               value={formData.howCanIHelp}
               onChange={handleChange}
               rows={5}
-              className="w-full px-4 py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors resize-none"
+              className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-[#06003F]/10 rounded-[6px] focus:outline-none focus:border-[#FF4E3A] transition-colors resize-none text-base md:text-[inherit]"
               placeholder="Type here..."
             />
           </div>
 
           {/* Submit Button */}
-          <div className="pt-4">
+          <div className="pt-2 sm:pt-3 md:pt-4">
             <button
               type="submit"
-              className="w-full bg-[#FF4E3A] text-white px-8 py-2.5 rounded-[6px] font-medium hover:brightness-110 transition-all"
+              className="w-full bg-[#FF4E3A] text-white px-6 sm:px-8 py-3 md:py-2.5 rounded-[6px] font-medium hover:brightness-110 transition-all text-[15px] sm:text-base"
             >
               Submit
             </button>
