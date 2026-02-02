@@ -120,6 +120,58 @@ export function ScheduleDemoForm() {
     }
   };
 
+  // Success state - show thank you message
+  if (submitStatus === 'success') {
+    return (
+      <section className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl pb-12 sm:pb-16 md:pb-20">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className="max-w-md mx-auto text-center py-12"
+        >
+          <div className="bg-white rounded-xl p-8 shadow-lg border border-[#06003F]/10">
+            {/* Checkmark Icon */}
+            <div className="w-16 h-16 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center">
+              <svg
+                className="w-8 h-8 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
+            
+            {/* Success Message */}
+            <h3 className="text-xl font-semibold text-[#06003F] mb-3">
+              Thank you!
+            </h3>
+            <p className="text-[#06003F]/70 mb-6">
+              Our team will reach out to you within the next 24 hours.
+            </p>
+            
+            {/* Submit Another Button */}
+            <button
+              onClick={() => {
+                setSubmitStatus('idle');
+                setStatusMessage('');
+              }}
+              className="text-[#FF4E3A] font-medium hover:underline transition-all"
+            >
+              Submit another response
+            </button>
+          </div>
+        </motion.div>
+      </section>
+    );
+  }
+
   return (
     <section className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl pb-12 sm:pb-16 md:pb-20">
       <motion.div
@@ -265,15 +317,9 @@ export function ScheduleDemoForm() {
           />
         </div>
 
-        {/* Status Message */}
-        {statusMessage && (
-          <div
-            className={`p-4 rounded-[6px] text-sm ${
-              submitStatus === 'success'
-                ? 'bg-green-50 text-green-800 border border-green-200'
-                : 'bg-red-50 text-red-800 border border-red-200'
-            }`}
-          >
+        {/* Error Message */}
+        {submitStatus === 'error' && statusMessage && (
+          <div className="p-4 rounded-[6px] text-sm bg-red-50 text-red-800 border border-red-200">
             {statusMessage}
           </div>
         )}
