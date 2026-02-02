@@ -93,22 +93,59 @@ const legalLinks: FooterLink[] = [
 // Component
 // ============================================
 
+type SubmitStatus = 'idle' | 'loading' | 'success' | 'error';
+
 export function Footer() {
   const pathname = usePathname();
   const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
 
   // Hide footer on specific pages (per designer-src behavior)
   if (PAGES_WITHOUT_FOOTER.includes(pathname)) {
     return null;
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Newsletter subscription:', email);
-    setIsSubmitted(true);
-    setEmail('');
-    setTimeout(() => setIsSubmitted(false), 3000);
+    setSubmitStatus('loading');
+    setStatusMessage('');
+
+    try {
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: 'newsletter',
+          fields: {
+            // Exact field name from existing voicecare.ai Newsletter form
+            'newsletteremail': email,
+          },
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+        setStatusMessage('Thank you for subscribing!');
+        setEmail('');
+        // Reset after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus('idle');
+          setStatusMessage('');
+        }, 5000);
+      } else {
+        setSubmitStatus('error');
+        setStatusMessage(result.message || 'Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      setSubmitStatus('error');
+      setStatusMessage('An error occurred. Please try again later.');
+    }
   };
 
   return (
@@ -217,38 +254,51 @@ export function Footer() {
                 Get the latest news and updates delivered to your inbox.
               </p>
 
-              <form onSubmit={handleSubmit}>
-                {/* Stacked input + button layout on all screen sizes */}
-                <div className="flex flex-col gap-3 max-w-sm mx-auto lg:mx-0 lg:max-w-md">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    required
-                    className="w-full px-4 lg:px-5 py-3.5 text-[15px] bg-[#06003F]/[0.02] border border-[#06003F]/10 rounded-[8px] focus:outline-none focus:border-[#FF4E3A] focus:bg-white transition-all placeholder:text-[#06003F]/30 text-center lg:text-left"
-                  />
-                  <button
-                    type="submit"
-                    disabled={isSubmitted}
-                    className="w-full bg-[#FF4E3A] text-white px-5 py-3 rounded-[6px] font-semibold hover:bg-[#FF4E3A]/90 transition-all flex items-center justify-center gap-2 group disabled:opacity-50 min-h-[44px]"
-                  >
-                    {isSubmitted ? (
-                      'Subscribed!'
-                    ) : (
-                      <>
-                        Submit
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                      </>
-                    )}
-                  </button>
+              {submitStatus === 'success' ? (
+                <div className="flex items-center gap-3 max-w-sm mx-auto lg:mx-0 lg:max-w-md bg-green-50 border border-green-200 rounded-[8px] p-4">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <p className="text-[14px] text-green-800 font-medium">{statusMessage}</p>
                 </div>
-              </form>
-
-              {isSubmitted && (
-                <p className="text-[13px] text-[#FF4E3A] mt-3 font-medium">
-                  Thank you for subscribing!
-                </p>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  {/* Stacked input + button layout on all screen sizes */}
+                  <div className="flex flex-col gap-3 max-w-sm mx-auto lg:mx-0 lg:max-w-md">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      required
+                      disabled={submitStatus === 'loading'}
+                      className="w-full px-4 lg:px-5 py-3.5 text-[15px] bg-[#06003F]/[0.02] border border-[#06003F]/10 rounded-[8px] focus:outline-none focus:border-[#FF4E3A] focus:bg-white transition-all placeholder:text-[#06003F]/30 text-center lg:text-left disabled:opacity-50"
+                    />
+                    <button
+                      type="submit"
+                      disabled={submitStatus === 'loading'}
+                      className="w-full bg-[#FF4E3A] text-white px-5 py-3 rounded-[6px] font-semibold hover:bg-[#FF4E3A]/90 transition-all flex items-center justify-center gap-2 group disabled:opacity-50 min-h-[44px]"
+                    >
+                      {submitStatus === 'loading' ? (
+                        'Subscribing...'
+                      ) : (
+                        <>
+                          Submit
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  
+                  {/* Error Message */}
+                  {submitStatus === 'error' && statusMessage && (
+                    <p className="text-[13px] text-red-600 mt-3 font-medium text-center lg:text-left">
+                      {statusMessage}
+                    </p>
+                  )}
+                </form>
               )}
             </div>
           </div>
