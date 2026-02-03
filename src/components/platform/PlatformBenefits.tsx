@@ -2,52 +2,21 @@
 
 /**
  * Platform Benefits Section
- * EXACT implementation from designer-src/src/app/components/Platform.tsx (Benefits Section)
- *
- * DESIGNER EXACT VALUES (DO NOT CHANGE):
- *
- * Section Container:
- * - relative py-24 bg-white
- *
- * Content Container:
- * - container mx-auto px-6 md:px-16 max-w-7xl
- *
- * Section Heading:
- * - text-center mb-16
- * - h2: text-[48px] font-bold text-[#06003F] tracking-tight leading-[1.1]
- *
- * Benefit Block Grid:
- * - grid md:grid-cols-2 gap-16 items-center
- * - Spacing between blocks: mt-24
- *
- * Alternating Pattern:
- * 1. Content LEFT, Image RIGHT
- * 2. Image LEFT, Content RIGHT
- * 3. Content LEFT, Image RIGHT
- * 4. Image LEFT, Content RIGHT
- *
- * Content Block:
- * - h3: text-[32px] font-bold text-[#06003F] mb-6 tracking-tight leading-[1.2]
- * - p: text-[17px] text-[#06003F]/70 leading-relaxed
- *
- * Video Block:
- * - Container: aspect-square w-full rounded-[12px] overflow-hidden
- * - Video: w-full h-full object-cover
- * - autoPlay, loop, muted, playsInline (behaves like GIF)
- *
- * Animations:
- * - Content/Video from left: initial x: -30, animate x: 0
- * - Content/Video from right: initial x: 30, animate x: 0
- * - All: opacity 0→1, duration 0.6, viewport once: true
+ * Dynamic content from WordPress + PIXEL-PERFECT design
  */
 
 import { motion } from 'motion/react';
+import type { PlatformBenefitsContent } from '@/lib/content';
 
 // ============================================
 // Types
 // ============================================
 
-interface Benefit {
+interface PlatformBenefitsProps {
+  content?: PlatformBenefitsContent;
+}
+
+interface BenefitWithVideo {
   id: string;
   title: string;
   description: string;
@@ -56,49 +25,55 @@ interface Benefit {
 }
 
 // ============================================
-// Data (EXACT from designer-src)
+// Default Content (Fallback)
 // ============================================
 
-const benefits: Benefit[] = [
-  {
-    id: 'automate',
-    title: 'Automate tasks and conversations',
-    description:
-      'Schedule one-time or recurring automated phone conversations and tasks in one click.',
-    video: '/images/platform/benefits/automate-tasks.mp4',
-    alt: 'Healthcare automation dashboard',
-  },
-  {
-    id: 'search',
-    title: 'Search for conversations',
-    description:
-      'Find structured data across every conversational audio and transcript, and get use-case specific call summary.',
-    video: '/images/platform/benefits/search-conversations.mp4',
-    alt: 'Search conversations interface',
-  },
-  {
-    id: 'analytics',
-    title: 'AI-powered call analytics',
-    description:
-      "Generate knowledge grounded in your back-office information – with drill-down analytics for every conversation on what's working, and where to improve.",
-    video: '/images/platform/benefits/ai-analytics.mp4',
-    alt: 'AI-powered analytics dashboard',
-  },
-  {
-    id: 'customize',
-    title: 'Customize conversations',
-    description:
-      'For use-case specific conversations, ask the questions that matter to deliver healthcare outcomes for your patients.',
-    video: '/images/platform/benefits/customize-conversations.mp4',
-    alt: 'Customize conversations interface',
-  },
+const DEFAULT_CONTENT: PlatformBenefitsContent = {
+  sectionTitle: 'Benefits',
+  benefits: [
+    {
+      title: 'Automate Tasks & Conversations',
+      description: 'Schedule one-time or recurring phone conversations and tasks seamlessly in one click.',
+    },
+    {
+      title: 'Search for Conversations',
+      description: 'Find structured data across every conversational audio and transcript, and instantly access use-case specific call summaries.',
+    },
+    {
+      title: 'AI-Powered Call Analytics',
+      description: "Generate insights and knowledge grounded in your back-office data with detailed analytics for every conversation to pinpoint what's working and where to improve.",
+    },
+    {
+      title: 'Customize Conversations',
+      description: 'Configure use-case specific conversations to ask the questions that matter, delivering better healthcare outcomes for your patients.',
+    },
+  ],
+};
+
+// Video paths remain static (managed in codebase, not CMS)
+const VIDEO_PATHS = [
+  '/images/platform/benefits/automate-tasks.mp4',
+  '/images/platform/benefits/search-conversations.mp4',
+  '/images/platform/benefits/ai-analytics.mp4',
+  '/images/platform/benefits/customize-conversations.mp4',
 ];
 
 // ============================================
 // Component
 // ============================================
 
-export function PlatformBenefits() {
+export function PlatformBenefits({ content }: PlatformBenefitsProps) {
+  const benefitsContent = content || DEFAULT_CONTENT;
+  
+  // Merge content with video paths
+  const benefits: BenefitWithVideo[] = benefitsContent.benefits.map((benefit, index) => ({
+    id: `benefit-${index}`,
+    title: benefit.title,
+    description: benefit.description,
+    video: VIDEO_PATHS[index] || VIDEO_PATHS[0],
+    alt: benefit.title,
+  }));
+
   return (
     <section className="relative py-14 sm:py-18 md:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl">
@@ -111,165 +86,133 @@ export function PlatformBenefits() {
           className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-[32px] sm:text-[40px] md:text-[48px] font-bold text-[#06003F] tracking-tight leading-[1.1]">
-            Benefits
+            {benefitsContent.sectionTitle}
           </h2>
         </motion.div>
 
         {/* Benefit 1: Content LEFT, Image RIGHT */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
-          {/* Content - appears first on mobile */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center md:text-left order-2 md:order-1"
-          >
-            <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6 tracking-tight leading-[1.2]">
-              {benefits[0].title}
-            </h3>
-            <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed">
-              {benefits[0].description}
-            </p>
-          </motion.div>
-
-          {/* Video */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative order-1 md:order-2"
-          >
-            <div className="aspect-[16/10] md:aspect-square w-full rounded-[12px] overflow-hidden">
-              <video
-                src={benefits[0].video}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
-        </div>
+        {benefits[0] && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center md:text-left order-2 md:order-1"
+            >
+              <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6 tracking-tight leading-[1.2]">
+                {benefits[0].title}
+              </h3>
+              <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed">
+                {benefits[0].description}
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative order-1 md:order-2"
+            >
+              <div className="aspect-[16/10] md:aspect-square w-full rounded-[12px] overflow-hidden">
+                <video src={benefits[0].video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+          </div>
+        )}
 
         {/* Benefit 2: Video LEFT, Content RIGHT */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center mt-12 sm:mt-16 md:mt-24">
-          {/* Video */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative order-1"
-          >
-            <div className="aspect-[16/10] md:aspect-square w-full rounded-[12px] overflow-hidden">
-              <video
-                src={benefits[1].video}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
-
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center md:text-left order-2"
-          >
-            <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6 tracking-tight leading-[1.2]">
-              {benefits[1].title}
-            </h3>
-            <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed">
-              {benefits[1].description}
-            </p>
-          </motion.div>
-        </div>
+        {benefits[1] && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center mt-12 sm:mt-16 md:mt-24">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative order-1"
+            >
+              <div className="aspect-[16/10] md:aspect-square w-full rounded-[12px] overflow-hidden">
+                <video src={benefits[1].video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center md:text-left order-2"
+            >
+              <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6 tracking-tight leading-[1.2]">
+                {benefits[1].title}
+              </h3>
+              <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed">
+                {benefits[1].description}
+              </p>
+            </motion.div>
+          </div>
+        )}
 
         {/* Benefit 3: Content LEFT, Video RIGHT */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center mt-12 sm:mt-16 md:mt-24">
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center md:text-left order-2 md:order-1"
-          >
-            <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6 tracking-tight leading-[1.2]">
-              {benefits[2].title}
-            </h3>
-            <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed">
-              {benefits[2].description}
-            </p>
-          </motion.div>
-
-          {/* Video */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative order-1 md:order-2"
-          >
-            <div className="aspect-[16/10] md:aspect-square w-full rounded-[12px] overflow-hidden">
-              <video
-                src={benefits[2].video}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
-        </div>
+        {benefits[2] && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center mt-12 sm:mt-16 md:mt-24">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center md:text-left order-2 md:order-1"
+            >
+              <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6 tracking-tight leading-[1.2]">
+                {benefits[2].title}
+              </h3>
+              <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed">
+                {benefits[2].description}
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative order-1 md:order-2"
+            >
+              <div className="aspect-[16/10] md:aspect-square w-full rounded-[12px] overflow-hidden">
+                <video src={benefits[2].video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+          </div>
+        )}
 
         {/* Benefit 4: Video LEFT, Content RIGHT */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center mt-12 sm:mt-16 md:mt-24">
-          {/* Video */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative order-1"
-          >
-            <div className="aspect-[16/10] md:aspect-square w-full rounded-[12px] overflow-hidden">
-              <video
-                src={benefits[3].video}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
-
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center md:text-left order-2"
-          >
-            <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6 tracking-tight leading-[1.2]">
-              {benefits[3].title}
-            </h3>
-            <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed">
-              {benefits[3].description}
-            </p>
-          </motion.div>
-        </div>
+        {benefits[3] && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center mt-12 sm:mt-16 md:mt-24">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative order-1"
+            >
+              <div className="aspect-[16/10] md:aspect-square w-full rounded-[12px] overflow-hidden">
+                <video src={benefits[3].video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center md:text-left order-2"
+            >
+              <h3 className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6 tracking-tight leading-[1.2]">
+                {benefits[3].title}
+              </h3>
+              <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed">
+                {benefits[3].description}
+              </p>
+            </motion.div>
+          </div>
+        )}
       </div>
     </section>
   );

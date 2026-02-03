@@ -2,51 +2,25 @@
 
 /**
  * Platform Tabbed Capabilities Section
- * EXACT implementation from designer-src/src/app/components/Platform.tsx (Tabbed Platform Capabilities)
- *
- * DESIGNER EXACT VALUES (DO NOT CHANGE):
- *
- * Section Container:
- * - relative pt-12 pb-24 bg-white
- *
- * Content Container:
- * - container mx-auto px-6 md:px-16 max-w-7xl
- *
- * Section Heading:
- * - text-center mb-12
- * - h2: text-[48px] font-bold text-[#06003F] tracking-tight leading-[1.1]
- *
- * Tabbed Interface Grid:
- * - grid md:grid-cols-[300px_1fr] gap-12
- *
- * Tab Navigation (Left):
- * - flex flex-col gap-3
- * - Active tab: bg-[#06003F] text-white shadow-lg
- * - Inactive tab: bg-transparent text-[#06003F]/60 hover:bg-[#F5F5F7]
- * - Button: px-6 py-4 rounded-[6px] text-left transition-all
- * - Icon: w-5 h-5
- * - Label: font-semibold text-[15px]
- *
- * Content Panel (Right):
- * - AnimatePresence mode="wait"
- * - Container: bg-[#FAFAFA] rounded-[12px] p-10 border border-[#06003F]/5
- * - Title: text-[32px] font-bold text-[#06003F] mb-4
- * - Video container: bg-white rounded-[12px] p-6 border border-[#06003F]/10
- * - Window dots: w-3 h-3 rounded-full (red-400, yellow-400, green-400)
- * - Video: 16:9 aspect ratio with poster and controls
+ * Dynamic content from WordPress + PIXEL-PERFECT design
  */
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CheckCircle2, FileText, Activity, Search, Shield, Play } from 'lucide-react';
+import { CheckCircle2, FileText, Activity, Search, Shield, Play, type LucideIcon } from 'lucide-react';
+import type { PlatformSolutionsContent } from '@/lib/content';
 
 // ============================================
 // Types
 // ============================================
 
-interface Capability {
+interface PlatformTabbedCapabilitiesProps {
+  content?: PlatformSolutionsContent;
+}
+
+interface CapabilityWithIcon {
   id: string;
-  icon: typeof CheckCircle2;
+  icon: LucideIcon;
   label: string;
   title: string;
   description: string;
@@ -55,56 +29,76 @@ interface Capability {
 }
 
 // ============================================
-// Data (EXACT from designer-src)
+// Default Content (Fallback)
 // ============================================
 
-const capabilities: Capability[] = [
-  {
-    id: 'benefit-verification',
-    icon: CheckCircle2,
-    label: 'Benefit Verification',
-    title: 'Benefit Verification',
-    description: 'Autonomous eligibility & coverage checks with payer systems.',
+const DEFAULT_CONTENT: PlatformSolutionsContent = {
+  sectionTitle: 'Our Solutions',
+  capabilities: [
+    {
+      id: 'benefit-verification',
+      label: 'Benefit Verification',
+      title: 'Benefit Verification',
+      description: 'Autonomous eligibility & coverage checks with payer systems.',
+    },
+    {
+      id: 'prior-authorization',
+      label: 'Prior Authorization',
+      title: 'Prior Authorization',
+      description: 'Smart determination, initiation, and follow-up across channels.',
+    },
+    {
+      id: 'prescription-support',
+      label: 'Prescription Support',
+      title: 'Prescription Support',
+      description: 'Context-aware verification and prior auth support workflows.',
+    },
+    {
+      id: 'claim-status',
+      label: 'Claim Status',
+      title: 'Claim Status',
+      description: 'Automated tracking and follow-ups for claim processing.',
+    },
+    {
+      id: 'claim-denials',
+      label: 'Claim Denials',
+      title: 'Claim Denials',
+      description: 'Intelligent denial management and appeal readiness.',
+    },
+  ],
+};
+
+// Icon and video mappings (static, managed in codebase)
+const ICON_MAP: Record<string, LucideIcon> = {
+  'benefit-verification': CheckCircle2,
+  'prior-authorization': FileText,
+  'prescription-support': Activity,
+  'claim-status': Search,
+  'claim-denials': Shield,
+};
+
+const VIDEO_MAP: Record<string, { video: string; thumbnail: string }> = {
+  'benefit-verification': {
     video: '/videos/platform/benefit-verification.mp4',
     thumbnail: '/videos/platform/thumbnails/benefit-verification.jpg',
   },
-  {
-    id: 'prior-authorization',
-    icon: FileText,
-    label: 'Prior Authorization',
-    title: 'Prior Authorization',
-    description: 'Smart determination, initiation, and follow-up across channels.',
+  'prior-authorization': {
     video: '/videos/platform/prior-authorization.mp4',
     thumbnail: '/videos/platform/thumbnails/prior-authorization.jpg',
   },
-  {
-    id: 'prescription-support',
-    icon: Activity,
-    label: 'Prescription Support',
-    title: 'Prescription Support',
-    description: 'Context-aware verification and prior auth support workflows.',
+  'prescription-support': {
     video: '/videos/platform/prescription-support.mp4',
     thumbnail: '/videos/platform/thumbnails/prescription-support.jpg',
   },
-  {
-    id: 'claim-status',
-    icon: Search,
-    label: 'Claim Status',
-    title: 'Claim Status',
-    description: 'Automated tracking and follow-ups for claim processing.',
+  'claim-status': {
     video: '/videos/platform/claim-status.mp4',
     thumbnail: '/videos/platform/thumbnails/claim-status.jpg',
   },
-  {
-    id: 'claim-denials',
-    icon: Shield,
-    label: 'Claim Denials',
-    title: 'Claim Denials',
-    description: 'Intelligent denial management and appeal readiness.',
+  'claim-denials': {
     video: '/videos/platform/claim-denials.mp4',
     thumbnail: '/videos/platform/thumbnails/claim-denials.jpg',
   },
-];
+};
 
 // ============================================
 // Video Player Component
@@ -172,8 +166,18 @@ function VideoPlayer({ video, thumbnail, description }: { video: string; thumbna
 // Component
 // ============================================
 
-export function PlatformTabbedCapabilities() {
-  const [activeTab, setActiveTab] = useState('benefit-verification');
+export function PlatformTabbedCapabilities({ content }: PlatformTabbedCapabilitiesProps) {
+  const solutionsContent = content || DEFAULT_CONTENT;
+  
+  // Merge content with icons and videos
+  const capabilities: CapabilityWithIcon[] = solutionsContent.capabilities.map((cap) => ({
+    ...cap,
+    icon: ICON_MAP[cap.id] || CheckCircle2,
+    video: VIDEO_MAP[cap.id]?.video || '/videos/platform/benefit-verification.mp4',
+    thumbnail: VIDEO_MAP[cap.id]?.thumbnail || '/videos/platform/thumbnails/benefit-verification.jpg',
+  }));
+  
+  const [activeTab, setActiveTab] = useState(capabilities[0]?.id || 'benefit-verification');
 
   return (
     <section className="relative pt-8 sm:pt-10 md:pt-12 pb-16 sm:pb-20 md:pb-24 bg-white">
@@ -187,7 +191,7 @@ export function PlatformTabbedCapabilities() {
           className="text-center mb-8 sm:mb-10 md:mb-12"
         >
           <h2 className="text-[32px] sm:text-[40px] md:text-[48px] font-bold text-[#06003F] tracking-tight leading-[1.1]">
-            Our Solutions
+            {solutionsContent.sectionTitle}
           </h2>
         </motion.div>
 

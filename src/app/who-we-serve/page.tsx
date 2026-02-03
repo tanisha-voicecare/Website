@@ -1,17 +1,12 @@
 /**
  * Who We Serve Page
- * Implementation from designer-src/src/app/components/WhoWeServe.tsx
- *
- * Sections IMPLEMENTED:
- * 1. WhoWeServeHero ✓
- * 2. WhoWeServeTabs ✓
- *
- * NOTE: Header and Footer are rendered by root layout.tsx
+ * Content is fetched from WordPress headless CMS
  */
 
 import type { Metadata } from 'next';
 import { WhoWeServeHero, WhoWeServeTabs } from '@/components/who-we-serve';
 import { generatePageMetadata } from '@/lib/seo';
+import { getWhoWeServeContent } from '@/lib/content';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Who We Serve',
@@ -20,11 +15,15 @@ export const metadata: Metadata = generatePageMetadata({
   pathname: '/who-we-serve',
 });
 
-export default function WhoWeServePage() {
+export const revalidate = 600; // Revalidate every 10 minutes
+
+export default async function WhoWeServePage() {
+  const content = await getWhoWeServeContent();
+
   return (
     <div className="min-h-screen bg-white w-full overflow-x-hidden">
-      <WhoWeServeHero />
-      <WhoWeServeTabs />
+      <WhoWeServeHero content={content.hero} />
+      <WhoWeServeTabs content={content.tabs} />
     </div>
   );
 }

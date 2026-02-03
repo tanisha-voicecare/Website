@@ -1,14 +1,6 @@
 /**
  * Platform Page
- * Implementation from designer-src/src/app/components/Platform.tsx
- *
- * All sections IMPLEMENTED:
- * 1. PlatformHero
- * 2. PlatformEHRContent
- * 3. PlatformTabbedCapabilities
- * 4. PlatformBenefits
- *
- * NOTE: Header and Footer are rendered by root layout.tsx
+ * Content is fetched from WordPress headless CMS
  */
 
 import type { Metadata } from 'next';
@@ -19,28 +11,44 @@ import {
   PlatformBenefits,
 } from '@/components/platform';
 import { generatePageMetadata } from '@/lib/seo';
+import {
+  getPlatformHeroContent,
+  getPlatformEHRContent,
+  getPlatformSolutionsContent,
+  getPlatformBenefitsContent,
+} from '@/lib/content';
 
 export const metadata: Metadata = generatePageMetadata({
   title: 'Platform',
   description:
-    'Discover the VoiceCare AI platform powered by Healthcare Administration General Intelligence (HAGI). Automate benefit verification, prior authorization, and routine back-office workflows with Generative and Conversational AI.',
+    'Discover the VoiceCare AI platform powered by Healthcare Administration General Intelligence (HAgi). Automate benefit verification, prior authorization, and routine back-office workflows with Generative and Conversational AI.',
   pathname: '/platform',
 });
 
-export default function PlatformPage() {
+export const revalidate = 600; // Revalidate every 10 minutes
+
+export default async function PlatformPage() {
+  // Fetch all content from WordPress in parallel
+  const [heroContent, ehrContent, solutionsContent, benefitsContent] = await Promise.all([
+    getPlatformHeroContent(),
+    getPlatformEHRContent(),
+    getPlatformSolutionsContent(),
+    getPlatformBenefitsContent(),
+  ]);
+
   return (
     <>
       <div id="platform-hero">
-        <PlatformHero />
+        <PlatformHero content={heroContent} />
       </div>
       <div id="platform-ehr">
-        <PlatformEHRContent />
+        <PlatformEHRContent content={ehrContent} />
       </div>
       <div id="platform-solutions">
-        <PlatformTabbedCapabilities />
+        <PlatformTabbedCapabilities content={solutionsContent} />
       </div>
       <div id="platform-benefits">
-        <PlatformBenefits />
+        <PlatformBenefits content={benefitsContent} />
       </div>
     </>
   );
