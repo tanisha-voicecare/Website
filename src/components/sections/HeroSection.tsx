@@ -2,88 +2,17 @@
 
 /**
  * HeroSection Component
- * PIXEL-PERFECT implementation from designer-src/src/app/components/Hero.tsx
+ * Dynamic content from WordPress + PIXEL-PERFECT design
  *
- * DESIGNER EXACT VALUES (DO NOT CHANGE):
- *
- * Section:
- * - min-h-screen, bg-white
- * - pt-5 pb-20 (outer section)
- * - px-5 (wrapper)
- *
- * Inner Container (Gradient Background):
- * - rounded-[24px]
- * - min-h-[800px]
- * - py-32 md:py-40
- * - bg-gradient-to-br from-[#06003F] via-[#1a0070] to-[#FF4E3A]
- *
- * Content:
- * - w-[1000px] max-w-full mx-auto px-6
- *
- * Badge:
- * - px-4 py-1.5
- * - rounded-full
- * - bg-white
- * - text-[10px] font-bold uppercase tracking-[0.1em]
- * - text-[#06003F]
- * - border border-black/5
- * - shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_4px_6px_-2px_rgba(0,0,0,0.05)]
- * - mb-12
- * - gap-2
- * - Icon: w-3 h-3 text-[#FF4E3A] fill-[#FF4E3A]
- *
- * Subheader:
- * - text-[18px] md:text-[22px]
- * - font-medium
- * - text-white/90
- * - mb-4
- * - tracking-tight
- *
- * Headline Container:
- * - h-[140px] md:h-[200px]
- *
- * Headline:
- * - text-[44px] md:text-[84px]
- * - font-bold
- * - tracking-[-0.04em]
- * - leading-[1.1]
- * - text-white
- *
- * Primary Button:
- * - bg-[#FF4E3A]
- * - text-white
- * - px-8 py-3.5
- * - rounded-[6px]
- * - text-sm font-semibold
- * - shadow-xl shadow-[#FF4E3A]/20
- * - hover:bg-[#FF4E3A]/90
- * - gap-2
- * - ArrowRight icon: w-4 h-4, hover:translate-x-1
- *
- * Secondary Button:
- * - bg-white
- * - border border-white/20
- * - text-[#06003F]
- * - px-8 py-3.5
- * - rounded-[6px]
- * - text-sm font-semibold
- * - shadow-sm
- * - hover:bg-white/90
- *
- * Button Container:
- * - gap-4
- * - mt-[40px]
- *
- * Animations:
- * - Entry: stagger 0.1s, y: 10 → 0, opacity: 0 → 1
- * - Headline: 4000ms interval, 0.8s duration, easing [0.16, 1, 0.3, 1]
- * - Background blobs: various durations (8s, 10s, 12s)
+ * Content is fetched server-side and passed as props.
+ * Falls back to defaults if WordPress content not available.
  */
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { Zap, ArrowRight } from 'lucide-react';
+import type { HomepageHeroContent } from '@/lib/content';
 
 // ============================================
 // Types
@@ -91,17 +20,28 @@ import { Zap, ArrowRight } from 'lucide-react';
 
 interface HeroSectionProps {
   className?: string;
+  content?: HomepageHeroContent;
 }
 
 // ============================================
-// Constants
+// Default Content (Fallback)
 // ============================================
 
-const HEADLINES = [
-  'Automating administrative burdens',
-  'Creating time for care teams',
-  'Improving patient outcomes',
-];
+const DEFAULT_CONTENT: HomepageHeroContent = {
+  badge: 'Agentic Intelligence for RCM',
+  headline: 'Your back office just got a massive upgrade. Stop Managing Admin and Delegate it to VoiceCare. Backed by Mayo Clinic.',
+  rotatingHeadlines: [
+    'Your AI workforce that autonomously handles Prior Auths, Benefits Verification, and Claims.',
+    'Enterprise-Ready deep integration with your EHR and payor portals.',
+    'Clinical-Grade Reliability by securing every task with a Human-in-the-Loop safety net.',
+    'Supercharging teams by replacing painful, time-consuming manual work.',
+    'SOC 2 Type II attested and HIPAA-compliant platform.',
+  ],
+  primaryButtonText: 'Experience it',
+  primaryButtonLink: '#experience',
+  secondaryButtonText: 'Schedule a Demo',
+  secondaryButtonLink: '/schedule-demo',
+};
 
 const ROTATION_INTERVAL = 4000; // 4 seconds
 
@@ -109,16 +49,20 @@ const ROTATION_INTERVAL = 4000; // 4 seconds
 // Component
 // ============================================
 
-export function HeroSection({ className = '' }: HeroSectionProps) {
+export function HeroSection({ className = '', content }: HeroSectionProps) {
   const [currentHeadingIndex, setCurrentHeadingIndex] = useState(0);
+
+  // Use provided content or fallback to defaults
+  const heroContent = content || DEFAULT_CONTENT;
+  const rotatingHeadlines = heroContent.rotatingHeadlines;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentHeadingIndex((prev) => (prev + 1) % HEADLINES.length);
+      setCurrentHeadingIndex((prev) => (prev + 1) % rotatingHeadlines.length);
     }, ROTATION_INTERVAL);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [rotatingHeadlines.length]);
 
   return (
     <section
@@ -244,10 +188,10 @@ export function HeroSection({ className = '' }: HeroSectionProps) {
                   }}
                 >
                   <Zap className="w-3 h-3 text-[#FF4E3A] fill-[#FF4E3A]" />
-                  Agentic Intelligence for RCM
+                  {heroContent.badge}
                 </motion.div>
 
-                {/* Static Subheader */}
+                {/* Static Headline */}
                 <motion.p
                   variants={{
                     hidden: { opacity: 0, y: 10 },
@@ -255,10 +199,10 @@ export function HeroSection({ className = '' }: HeroSectionProps) {
                   }}
                   className="text-[14px] sm:text-[16px] md:text-[18px] lg:text-[22px] font-medium text-white/90 mb-4 tracking-tight px-2"
                 >
-                  Supercharging Healthcare Workers with Care and AI by
+                  {heroContent.headline}
                 </motion.p>
 
-                {/* Rotating Headlines */}
+                {/* Rotating Sub-Headlines */}
                 <div className="relative h-[100px] sm:h-[120px] md:h-[160px] lg:h-[200px] flex items-center justify-center w-full">
                   <AnimatePresence mode="wait">
                     <motion.h1
@@ -273,7 +217,7 @@ export function HeroSection({ className = '' }: HeroSectionProps) {
                       }}
                       className="absolute text-[28px] sm:text-[36px] md:text-[52px] lg:text-[84px] font-bold tracking-[-0.04em] leading-[1.1] text-white text-center px-2"
                     >
-                      {HEADLINES[currentHeadingIndex]}
+                      {rotatingHeadlines[currentHeadingIndex]}
                     </motion.h1>
                   </AnimatePresence>
                 </div>
@@ -289,19 +233,19 @@ export function HeroSection({ className = '' }: HeroSectionProps) {
                 >
                   {/* Primary CTA */}
                   <Link
-                    href="#experience"
+                    href={heroContent.primaryButtonLink}
                     className="inline-flex items-center justify-center gap-2 bg-[#FF4E3A] text-white px-6 sm:px-8 py-3.5 rounded-[6px] text-sm font-semibold hover:bg-[#FF4E3A]/90 transition-all group shadow-xl shadow-[#FF4E3A]/20 min-h-[48px]"
                   >
-                    Experience it
+                    {heroContent.primaryButtonText}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
 
                   {/* Secondary CTA */}
                   <Link
-                    href="/schedule-demo"
+                    href={heroContent.secondaryButtonLink}
                     className="inline-flex items-center justify-center bg-white border border-white/20 text-[#06003F] px-6 sm:px-8 py-3.5 rounded-[6px] text-sm font-semibold hover:bg-white/90 transition-all shadow-sm min-h-[48px]"
                   >
-                    Schedule a Demo
+                    {heroContent.secondaryButtonText}
                   </Link>
                 </motion.div>
               </motion.div>

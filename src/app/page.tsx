@@ -1,6 +1,7 @@
 /**
  * Home Page
  * VoiceCare AI - Main landing page
+ * Content is fetched from WordPress headless CMS
  */
 
 import type { Metadata } from 'next';
@@ -11,6 +12,13 @@ import { InfiniteMarqueeSection } from '@/components/sections/InfiniteMarqueeSec
 import { SupportedEHRIntegrationsSection } from '@/components/sections/SupportedEHRIntegrationsSection';
 import { ProductIntroSection } from '@/components/sections/ProductIntroSection';
 import { generatePageMetadata } from '@/lib/seo';
+import {
+  getHomepageHeroContent,
+  getValueMetricsContent,
+  getRadicalEfficienciesContent,
+  getEHRIntegrationsContent,
+  getProductIntroContent,
+} from '@/lib/content';
 
 // ============================================
 // Metadata
@@ -33,26 +41,41 @@ export const revalidate = 600; // Revalidate every 10 minutes
 // Page Component
 // ============================================
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch all content from WordPress in parallel
+  const [
+    heroContent,
+    valueMetricsContent,
+    radicalEfficienciesContent,
+    ehrIntegrationsContent,
+    productIntroContent,
+  ] = await Promise.all([
+    getHomepageHeroContent(),
+    getValueMetricsContent(),
+    getRadicalEfficienciesContent(),
+    getEHRIntegrationsContent(),
+    getProductIntroContent(),
+  ]);
+
   return (
     <>
       {/* Hero Section */}
-      <HeroSection />
+      <HeroSection content={heroContent} />
 
       {/* Trusted By Section */}
       <TrustedBySection />
 
-      {/* Value Metrics Section - Why VoiceCare */}
-      <ValueMetricsSection />
+      {/* Value Metrics Section - The VoiceCare Advantage */}
+      <ValueMetricsSection content={valueMetricsContent} />
 
       {/* Supported EHR Integrations Section */}
-      <SupportedEHRIntegrationsSection />
+      <SupportedEHRIntegrationsSection content={ehrIntegrationsContent} />
 
-      {/* Infinite Marquee Section - Real-World Impact / Radical Efficiencies */}
-      <InfiniteMarqueeSection />
+      {/* Infinite Marquee Section - Radical Efficiencies */}
+      <InfiniteMarqueeSection content={radicalEfficienciesContent} />
 
-      {/* Product Intro Section - Introducing Joy */}
-      <ProductIntroSection />
+      {/* Product Intro Section - Meet Your AI Workforce */}
+      <ProductIntroSection content={productIntroContent} />
     </>
   );
 }

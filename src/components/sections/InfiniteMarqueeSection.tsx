@@ -2,54 +2,12 @@
 
 /**
  * InfiniteMarqueeSection Component (Radical Efficiencies)
- * PIXEL-PERFECT implementation from designer-src/src/app/components/InfiniteMarquee.tsx
- *
- * DESIGNER EXACT VALUES (DO NOT CHANGE):
- *
- * Section:
- * - relative py-32 md:py-40 overflow-hidden bg-white
- *
- * Content Container:
- * - max-w-[1000px] mx-auto px-6 md:px-12
- * - text-center
- * - mt-[-91px] (negative margin adjustment)
- *
- * Badge:
- * - inline-flex items-center gap-2
- * - px-4 py-1.5 rounded-full
- * - bg-white text-[10px] font-bold uppercase tracking-[0.1em]
- * - text-[#06003F] border border-[#06003F]/5 shadow-sm
- * - mb-8
- * - Dot: w-1.5 h-1.5 rounded-full bg-[#FF4E3A] animate-pulse
- *
- * Heading:
- * - text-[48px] font-bold text-[#06003F]
- * - tracking-[-0.02em] leading-[1.05]
- * - mb-6
- *
- * Counter:
- * - text-[72px] md:text-[96px] font-bold text-[#FF4E3A]
- * - tracking-tight leading-none
- * - mb-4
- * - Animates: 0 → 32,000
- * - Duration: 2000ms
- * - Steps: 60
- *
- * Caption:
- * - text-[#06003F]/60 text-[18px] font-medium leading-relaxed
- *
- * Bottom Border:
- * - absolute bottom-0 left-0 right-0 h-px
- * - bg-gradient-to-r from-transparent via-[#06003F]/10 to-transparent
- *
- * Animations:
- * - Header: opacity 0→1, y 30→0, duration 1s, ease [0.23,1,0.32,1]
- * - Badge: opacity 0→1, scale 0.9→1, duration 0.6s, delay 0.2s
- * - Counter: opacity 0→1, scale 0.95→1, duration 0.8s, delay 0.3s
+ * Dynamic content from WordPress + PIXEL-PERFECT design
  */
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'motion/react';
+import type { RadicalEfficienciesContent } from '@/lib/content';
 
 // ============================================
 // Types
@@ -57,13 +15,34 @@ import { motion, useInView } from 'motion/react';
 
 interface InfiniteMarqueeSectionProps {
   className?: string;
+  content?: RadicalEfficienciesContent;
 }
+
+// ============================================
+// Default Content (Fallback)
+// ============================================
+
+const DEFAULT_CONTENT: RadicalEfficienciesContent = {
+  sectionTitle: 'Radical Efficiencies',
+  stats: [
+    { value: '530+', label: 'hours recovered per 1,000 conversations' },
+    { value: '1060+', label: 'hours saved per day' },
+    { value: '130+', label: 'workdays of staff time recovered every day' },
+  ],
+};
 
 // ============================================
 // Component
 // ============================================
 
-export function InfiniteMarqueeSection({ className = '' }: InfiniteMarqueeSectionProps) {
+export function InfiniteMarqueeSection({ className = '', content }: InfiniteMarqueeSectionProps) {
+  // Use provided content or fallback to defaults
+  const sectionContent = content || DEFAULT_CONTENT;
+  
+  // Extract primary stat for animated counter (first stat's numeric value)
+  const primaryStat = sectionContent.stats[0];
+  const targetValue = parseInt(primaryStat?.value.replace(/[^0-9]/g, '') || '530') * 60; // Convert hours to minutes
+  
   const [count, setCount] = useState(0);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -71,7 +50,6 @@ export function InfiniteMarqueeSection({ className = '' }: InfiniteMarqueeSectio
   useEffect(() => {
     if (!isInView) return;
 
-    const targetValue = 32000;
     const duration = 2000; // 2 seconds
     const steps = 60;
     const increment = targetValue / steps;
@@ -90,7 +68,7 @@ export function InfiniteMarqueeSection({ className = '' }: InfiniteMarqueeSectio
     }, stepDuration);
 
     return () => clearInterval(timer);
-  }, [isInView]);
+  }, [isInView, targetValue]);
 
   return (
     <section
@@ -123,7 +101,7 @@ export function InfiniteMarqueeSection({ className = '' }: InfiniteMarqueeSectio
               id="radical-efficiencies-heading"
               className="text-[32px] sm:text-[40px] lg:text-[48px] font-bold text-[#06003F] tracking-[-0.02em] leading-[1.05] mb-4 sm:mb-6"
             >
-              Radical Efficiencies
+              {sectionContent.sectionTitle}
             </h2>
 
             {/* Large stat display */}
@@ -141,6 +119,28 @@ export function InfiniteMarqueeSection({ className = '' }: InfiniteMarqueeSectio
                 Minutes saved per 1,000 phone calls
               </p>
             </motion.div>
+
+            {/* Additional Stats Grid */}
+            {sectionContent.stats.length > 1 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12"
+              >
+                {sectionContent.stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-2xl sm:text-3xl font-bold text-[#06003F] mb-1">
+                      {stat.value}
+                    </div>
+                    <p className="text-[#06003F]/60 text-sm font-medium">
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </div>

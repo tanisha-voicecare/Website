@@ -2,45 +2,12 @@
 
 /**
  * SupportedEHRIntegrationsSection Component
- * PIXEL-PERFECT implementation matching Figma site
- *
- * DESIGN SPECIFICATIONS (from Figma):
- *
- * Section:
- * - py-16 md:py-20 (64px / 80px)
- * - bg-white
- *
- * Container:
- * - max-w-[1100px] mx-auto
- * - px-6 md:px-12
- *
- * Title:
- * - text-[36px] md:text-[48px]
- * - font-bold
- * - text-[#06003F]
- * - tracking-[-0.02em]
- * - text-center
- * - mb-12 md:mb-16
- *
- * Logo Grid:
- * - grid-cols-2 md:grid-cols-4
- * - gap-y-10 md:gap-y-12 (vertical)
- * - gap-x-8 md:gap-x-16 (horizontal)
- * - items-center justify-items-center
- *
- * Logo Sizing:
- * - max-h-[40px] md:max-h-[48px]
- * - w-auto max-w-[160px]
- * - object-contain
- * - Full color (NO grayscale)
- *
- * ASSET PATHS:
- * - All EHR logos in /public/images/logos/ehr/
- * - Use kebab-case filenames
+ * Dynamic content from WordPress + PIXEL-PERFECT design
  */
 
 import Image from 'next/image';
 import { motion } from 'motion/react';
+import type { EHRIntegrationsContent } from '@/lib/content';
 
 // ============================================
 // Types
@@ -48,7 +15,17 @@ import { motion } from 'motion/react';
 
 interface SupportedEHRIntegrationsSectionProps {
   className?: string;
+  content?: EHRIntegrationsContent;
 }
+
+// ============================================
+// Default Content (Fallback)
+// ============================================
+
+const DEFAULT_CONTENT: EHRIntegrationsContent = {
+  sectionTitle: 'Supported EHR Integrations',
+  sectionDescription: 'Transform complex administrative tasks into structured data within your existing systems',
+};
 
 interface EHRLogo {
   name: string;
@@ -113,24 +90,41 @@ const EHR_LOGOS: EHRLogo[] = [
 
 export function SupportedEHRIntegrationsSection({
   className = '',
+  content,
 }: SupportedEHRIntegrationsSectionProps) {
+  // Use provided content or fallback to defaults
+  const sectionContent = content || DEFAULT_CONTENT;
+
   return (
     <section
       className={`py-12 sm:py-16 md:py-20 bg-white ${className}`}
       aria-labelledby="ehr-integrations-heading"
     >
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 md:px-12">
-        {/* Title - matches Figma exactly */}
+        {/* Title */}
         <motion.h2
           id="ehr-integrations-heading"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-          className="text-[28px] sm:text-[36px] lg:text-[48px] font-bold text-[#06003F] tracking-[-0.02em] text-center mb-8 sm:mb-12 md:mb-16"
+          className="text-[28px] sm:text-[36px] lg:text-[48px] font-bold text-[#06003F] tracking-[-0.02em] text-center mb-4 sm:mb-6"
         >
-          Supported EHR Integrations
+          {sectionContent.sectionTitle}
         </motion.h2>
+
+        {/* Description */}
+        {sectionContent.sectionDescription && (
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+            className="text-base sm:text-lg text-[#06003F]/60 leading-relaxed font-medium max-w-2xl mx-auto text-center mb-8 sm:mb-12 md:mb-16"
+          >
+            {sectionContent.sectionDescription}
+          </motion.p>
+        )}
 
         {/* Logo Grid - 2 columns mobile, 4 columns desktop */}
         <motion.div
