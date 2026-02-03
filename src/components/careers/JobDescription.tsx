@@ -3,6 +3,11 @@
 /**
  * JobDescription Component
  * PIXEL-PERFECT implementation from designer-src/src/app/components/JobDescription.tsx
+ * 
+ * NOW WITH DYNAMIC FORM SUPPORT:
+ * - Fetches form fields from WordPress automatically
+ * - Admin can change form fields without code changes
+ * - Zero developer dependency
  *
  * DESIGNER EXACT VALUES (DO NOT CHANGE):
  *
@@ -46,34 +51,13 @@
  * - lg:col-span-1
  * - sticky top-32
  * - Animation: initial opacity:0, y:20 → opacity:1, y:0, delay: 0.2
- *
- * Form Card:
- * - bg-white border border-[#06003F]/10 rounded-[12px] p-8
- *
- * Form Title:
- * - text-[24px] font-bold text-[#06003F] mb-6
- *
- * Labels:
- * - text-[14px] font-semibold text-[#06003F] mb-2
- *
- * Inputs:
- * - px-4 py-3 border border-[#06003F]/20 rounded-[6px] text-[14px]
- * - focus:border-[#FF4E3A]
- *
- * File Upload:
- * - border-2 border-dashed border-[#06003F]/20 rounded-[6px] p-6
- * - hover:border-[#FF4E3A]/50
- *
- * Submit Button:
- * - w-full bg-[#FF4E3A] text-white px-8 py-3.5 rounded-[6px]
- * - text-sm font-semibold shadow-lg shadow-[#FF4E3A]/20
  */
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'motion/react';
-import { ArrowLeft, Upload, X } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import type { JobData } from './jobsData';
+import { JobApplicationForm } from '@/components/forms';
 
 // ============================================
 // Types
@@ -83,35 +67,15 @@ export type { JobData };
 
 interface JobDescriptionProps {
   jobData: JobData;
+  /** Optional: Form ID from WordPress MetForm (if known) */
+  formId?: number;
 }
 
 // ============================================
 // Component
 // ============================================
 
-export function JobDescription({ jobData }: JobDescriptionProps) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    officeAvailability: '',
-  });
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setUploadedFile(e.target.files[0]);
-    }
-  };
-
-  const handleRemoveFile = () => {
-    setUploadedFile(null);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', { ...formData, file: uploadedFile });
-  };
+export function JobDescription({ jobData, formId }: JobDescriptionProps) {
 
   return (
     <div className="min-h-screen bg-white w-full overflow-x-hidden">
@@ -236,151 +200,11 @@ export function JobDescription({ jobData }: JobDescriptionProps) {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="relative lg:sticky lg:top-32"
               >
-                <div className="w-full bg-white border border-[#06003F]/10 rounded-[12px] p-5 sm:p-6 md:p-7 lg:p-8">
-                  <h3 className="text-[20px] sm:text-[22px] md:text-[24px] font-bold text-[#06003F] mb-4 sm:mb-5 md:mb-6">
-                    Apply for this position
-                  </h3>
-
-                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
-                    {/* Name Input */}
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-[13px] sm:text-[14px] font-semibold text-[#06003F] mb-2"
-                      >
-                        Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 border border-[#06003F]/20 rounded-[6px] text-[13px] sm:text-[14px] text-[#06003F] focus:outline-none focus:border-[#FF4E3A] transition-colors"
-                        placeholder="Your full name"
-                      />
-                    </div>
-
-                    {/* Email Input */}
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-[13px] sm:text-[14px] font-semibold text-[#06003F] mb-2"
-                      >
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 border border-[#06003F]/20 rounded-[6px] text-[13px] sm:text-[14px] text-[#06003F] focus:outline-none focus:border-[#FF4E3A] transition-colors"
-                        placeholder="your.email@example.com"
-                      />
-                    </div>
-
-                    {/* File Upload */}
-                    <div>
-                      <label
-                        htmlFor="resume"
-                        className="block text-[13px] sm:text-[14px] font-semibold text-[#06003F] mb-2"
-                      >
-                        Resume/CV *
-                      </label>
-                      {!uploadedFile ? (
-                        <label
-                          htmlFor="resume"
-                          className="w-full border-2 border-dashed border-[#06003F]/20 rounded-[6px] p-4 sm:p-5 md:p-6 flex flex-col items-center justify-center cursor-pointer hover:border-[#FF4E3A]/50 transition-colors"
-                        >
-                          <Upload className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#06003F]/40 mb-2" />
-                          <span className="text-[13px] sm:text-[14px] text-[#06003F]/60 text-center">Click to upload</span>
-                          <span className="text-[11px] sm:text-[12px] text-[#06003F]/40 mt-1 text-center break-words">
-                            PDF, DOC, DOCX (Max 10MB)
-                          </span>
-                          <input
-                            type="file"
-                            id="resume"
-                            required
-                            onChange={handleFileUpload}
-                            accept=".pdf,.doc,.docx"
-                            className="hidden"
-                          />
-                        </label>
-                      ) : (
-                        <div className="border border-[#06003F]/20 rounded-[6px] p-3 sm:p-4 flex items-center justify-between gap-2 min-w-0">
-                          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#FF4E3A]/10 rounded-[6px] flex items-center justify-center shrink-0">
-                              <Upload className="w-4 h-4 sm:w-5 sm:h-5 text-[#FF4E3A]" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <p className="text-[13px] sm:text-[14px] font-medium text-[#06003F] truncate">
-                                {uploadedFile.name}
-                              </p>
-                              <p className="text-[11px] sm:text-[12px] text-[#06003F]/60">
-                                {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
-                              </p>
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={handleRemoveFile}
-                            className="text-[#06003F]/40 hover:text-[#FF4E3A] transition-colors shrink-0"
-                          >
-                            <X className="w-4 h-4 sm:w-5 sm:h-5" />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Radio Buttons */}
-                    <div>
-                      <label className="block text-[13px] sm:text-[14px] font-semibold text-[#06003F] mb-2 sm:mb-3 leading-relaxed">
-                        Our hybrid office culture believes innovation happens when team members
-                        collaborate live. Would you be available to work in our Bay Area or India
-                        office 3 days a week? *
-                      </label>
-                      <div className="space-y-2 sm:space-y-3">
-                        <label className="flex items-center gap-2 sm:gap-3 cursor-pointer">
-                          <input
-                            type="radio"
-                            name="officeAvailability"
-                            value="yes"
-                            required
-                            checked={formData.officeAvailability === 'yes'}
-                            onChange={(e) =>
-                              setFormData({ ...formData, officeAvailability: e.target.value })
-                            }
-                            className="w-4 h-4 text-[#FF4E3A] border-[#06003F]/20 focus:ring-[#FF4E3A]"
-                          />
-                          <span className="text-[13px] sm:text-[14px] text-[#06003F]">Yes</span>
-                        </label>
-                        <label className="flex items-center gap-2 sm:gap-3 cursor-pointer">
-                          <input
-                            type="radio"
-                            name="officeAvailability"
-                            value="no"
-                            required
-                            checked={formData.officeAvailability === 'no'}
-                            onChange={(e) =>
-                              setFormData({ ...formData, officeAvailability: e.target.value })
-                            }
-                            className="w-4 h-4 text-[#FF4E3A] border-[#06003F]/20 focus:ring-[#FF4E3A]"
-                          />
-                          <span className="text-[13px] sm:text-[14px] text-[#06003F]">No</span>
-                        </label>
-                      </div>
-                    </div>
-
-                    {/* Submit Button */}
-                    <button
-                      type="submit"
-                      className="w-full bg-[#FF4E3A] text-white px-6 sm:px-8 py-3 lg:py-3.5 rounded-[6px] text-sm font-semibold hover:bg-[#FF4E3A]/90 transition-all shadow-lg shadow-[#FF4E3A]/20"
-                    >
-                      Submit Application
-                    </button>
-                  </form>
-                </div>
+                {/* Dynamic Job Application Form - fetches fields from WordPress */}
+                <JobApplicationForm 
+                  formId={formId} 
+                  jobTitle={jobData.title}
+                />
               </motion.div>
             </div>
           </div>
