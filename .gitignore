@@ -47,3 +47,7 @@ next-env.d.ts
 
 # Designer source (Figma export - source of truth, not for deployment)
 designer-src/
+
+# Local files - do not commit
+netlify.env
+wordpress-snippet-v2.php
