@@ -11,6 +11,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { AdvisorsSectionContent, AdvisorItem } from '@/lib/content';
 
+// Investor logos
+const INVESTOR_LOGOS = [
+  { src: '/images/company/investors/bread-butter.png', alt: 'Bread & Butter Ventures', height: 'h-16 sm:h-20 md:h-24' },
+  { src: '/images/company/investors/caduceus.png', alt: 'Caduceus Capital Partners', height: 'h-20 sm:h-24 md:h-28' },
+  { src: '/images/company/investors/mayo-clinic.png', alt: 'Mayo Clinic', height: 'h-20 sm:h-24 md:h-28' },
+];
+
 interface AdvisorsSectionProps {
   content?: AdvisorsSectionContent;
 }
@@ -152,15 +159,15 @@ export function AdvisorsSection({ content }: AdvisorsSectionProps) {
   }, []);
 
   return (
-    <section className="relative py-10 sm:py-12 md:py-[60px] bg-white overflow-x-hidden">
-      <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl">
+    <section className="relative pt-12 sm:pt-16 md:pt-20 pb-10 sm:pb-12 md:pb-16 bg-white overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-6 md:px-16 max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10 sm:mb-14 md:mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
         >
           <motion.h2
             initial={{ opacity: 0, scale: 0.95 }}
@@ -176,10 +183,31 @@ export function AdvisorsSection({ content }: AdvisorsSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.15 }}
-            className="text-[15px] sm:text-[16px] md:text-[18px] text-[#06003F]/60 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto px-2"
+            className="text-[16px] sm:text-[17px] md:text-[18px] text-[#06003F]/60 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto"
           >
             {sectionContent.sectionDescription}
           </motion.p>
+        </motion.div>
+
+        {/* Investor Logos Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-20 mb-12 sm:mb-16 md:mb-20 max-w-4xl mx-auto"
+        >
+          {INVESTOR_LOGOS.map((logo, index) => (
+            <div key={index} className="flex items-center justify-center h-20 sm:h-24 md:h-32">
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={200}
+                height={112}
+                className={`${logo.height} w-auto object-contain`}
+              />
+            </div>
+          ))}
         </motion.div>
 
         {/* Horizontal Scroll Container with Navigation */}
@@ -243,7 +271,7 @@ export function AdvisorsSection({ content }: AdvisorsSectionProps) {
                       className="absolute top-3 left-3 sm:top-4 sm:left-4"
                     >
                       <span
-                        className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-[6px] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider ${
+                        className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-[6px] text-[10px] sm:text-[12px] font-bold uppercase tracking-wider ${
                           advisor.role === 'Investor'
                             ? 'bg-[#FF4E3A] text-white'
                             : advisor.role === 'Board Member'
@@ -258,10 +286,10 @@ export function AdvisorsSection({ content }: AdvisorsSectionProps) {
 
                   {/* Info Section */}
                   <div>
-                    <h3 className="text-[17px] sm:text-[18px] md:text-[20px] font-bold text-[#06003F] mb-1 group-hover:text-[#FF4E3A] transition-colors duration-200">
+                    <h3 className="text-[18px] sm:text-[19px] md:text-[20px] font-bold text-[#06003F] mb-1 group-hover:text-[#FF4E3A] transition-colors duration-200">
                       {advisor.name}
                     </h3>
-                    <p className="text-[12px] sm:text-[13px] text-[#06003F]/50 leading-relaxed line-clamp-2">
+                    <p className="text-[14px] sm:text-[15px] text-[#06003F]/50 leading-relaxed line-clamp-2">
                       {advisor.designation}
                     </p>
                   </div>
@@ -336,18 +364,18 @@ export function AdvisorsSection({ content }: AdvisorsSectionProps) {
 
                   {/* Right: Details */}
                   <div className="text-center md:text-left">
-                    <h2 className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-bold text-[#06003F] mb-2">
+                    <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold text-[#06003F] mb-2">
                       {advisors[selectedAdvisor].name}
                     </h2>
-                    <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#06003F]/60 mb-6 sm:mb-8 leading-relaxed">
+                    <p className="text-[15px] sm:text-[16px] text-[#06003F]/60 mb-6 sm:mb-8 leading-relaxed">
                       {advisors[selectedAdvisor].designation}
                     </p>
 
                     <div className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-[#06003F]/10">
-                      <h3 className="text-[11px] sm:text-[12px] font-bold uppercase tracking-widest text-[#06003F]/40 mb-2 sm:mb-3">
+                      <h3 className="text-[12px] font-bold uppercase tracking-widest text-[#06003F]/40 mb-2 sm:mb-3">
                         About
                       </h3>
-                      <p className="text-[14px] sm:text-[15px] text-[#06003F]/80 leading-relaxed">
+                      <p className="text-[15px] text-[#06003F]/80 leading-relaxed">
                         {advisors[selectedAdvisor].description}
                       </p>
                     </div>
@@ -355,7 +383,7 @@ export function AdvisorsSection({ content }: AdvisorsSectionProps) {
                     {advisors[selectedAdvisor].logos &&
                       advisors[selectedAdvisor].logos.length > 0 && (
                         <div>
-                          <h3 className="text-[11px] sm:text-[12px] font-bold uppercase tracking-widest text-[#06003F]/40 mb-3 sm:mb-4">
+                          <h3 className="text-[12px] font-bold uppercase tracking-widest text-[#06003F]/40 mb-3 sm:mb-4">
                             Affiliations
                           </h3>
                           <div className="flex gap-4 sm:gap-6 items-center flex-wrap justify-center md:justify-start">
@@ -365,9 +393,9 @@ export function AdvisorsSection({ content }: AdvisorsSectionProps) {
                                 src={logo.src}
                                 alt={logo.alt}
                                 width={100}
-                                height={40}
-                                sizes="80px"
-                                className="h-8 sm:h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                                height={64}
+                                sizes="100px"
+                                className="h-12 sm:h-14 md:h-16 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                               />
                             ))}
                           </div>
