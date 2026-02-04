@@ -288,8 +288,8 @@ export function Footer({ content }: FooterProps) {
               {footerContent.copyrightText}
             </p>
 
-            {/* Compliance Badges - placeholder for local asset */}
-            <div className="flex items-center gap-4 order-1 lg:order-2">
+            {/* Compliance Badges */}
+            <div className="flex items-start gap-6 sm:gap-8 order-1 lg:order-2">
               <Image
                 src="/images/icons/soc-hipaa-badges.png"
                 alt="SOC 2 Type II and HIPAA Compliance badges"
@@ -298,10 +298,25 @@ export function Footer({ content }: FooterProps) {
                 sizes="200px"
                 className="h-16 sm:h-20 w-auto"
                 onError={(e) => {
-                  // Hide if image doesn't exist
                   (e.target as HTMLImageElement).style.display = 'none';
                 }}
               />
+              
+              {/* ISO Logo with Coming Soon */}
+              <div className="flex flex-col items-center gap-1.5">
+                <div className="h-16 sm:h-20 flex items-center justify-center">
+                  <Image
+                    src="/images/icons/iso-logo.png"
+                    alt="ISO Certification"
+                    width={80}
+                    height={80}
+                    className="h-16 sm:h-20 w-auto object-contain"
+                  />
+                </div>
+                <span className="text-[10px] font-semibold text-[#06003F]/30 uppercase tracking-[0.1em]">
+                  Coming Soon
+                </span>
+              </div>
             </div>
 
             <div className="flex items-center gap-4 sm:gap-6 order-2 lg:order-3">
