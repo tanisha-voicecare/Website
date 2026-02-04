@@ -29,7 +29,7 @@ const DEFAULT_CONTENT: FooterContent = {
 // ============================================
 // Pages that should NOT render Footer (per designer-src)
 // ============================================
-const PAGES_WITHOUT_FOOTER = ['/schedule-demo', '/partner-with-us', '/privacy-policy', '/terms-of-service'];
+const PAGES_WITHOUT_FOOTER = ['/partner-with-us', '/privacy-policy', '/terms-of-service'];
 
 // ============================================
 // Footer Navigation Data - EXACT from designer-src

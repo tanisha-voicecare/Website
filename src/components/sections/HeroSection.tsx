@@ -156,7 +156,7 @@ export function HeroSection({ className = '', content }: HeroSectionProps) {
           </div>
 
           {/* Content Container - Centered */}
-          <div className="relative py-16 sm:py-20 md:py-24 lg:py-32 flex items-center justify-center">
+          <div className="relative py-20 sm:py-24 md:py-32 lg:py-44 flex items-center justify-center">
             <div className="w-[1000px] max-w-full mx-auto px-4 sm:px-6">
               <motion.div
                 initial="hidden"

@@ -400,10 +400,11 @@ export function Header() {
             href="https://customer.voicecare.ai/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-medium text-[#06003F] hover:text-[#FF4E3A] transition-colors"
+            className="bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-sm font-medium hover:brightness-110 transition-all shadow-sm"
           >
             Log in
           </Link>
+          {/* Become a Customer button - commented out for now
           <Link
             href="https://customer.voicecare.ai/become-a-customer"
             target="_blank"
@@ -412,6 +413,7 @@ export function Header() {
           >
             Become a Customer
           </Link>
+          */}
         </div>
 
         {/* Mobile menu button (visible below lg) */}
@@ -537,11 +539,12 @@ export function Header() {
                     href="https://customer.voicecare.ai/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full px-4 py-3 min-h-[44px] text-sm font-medium text-[#06003F] text-center hover:bg-[#06003F]/5 rounded-lg transition-colors"
+                    className="block w-full px-4 py-3 min-h-[44px] bg-[#FF4E3A] text-white text-center text-sm font-medium rounded-[4px] hover:brightness-110 transition-all"
                     onClick={closeMobileMenu}
                   >
                     Log in
                   </Link>
+                  {/* Become a Customer button - commented out for now
                   <Link
                     href="https://customer.voicecare.ai/become-a-customer"
                     target="_blank"
@@ -551,6 +554,7 @@ export function Header() {
                   >
                     Become a Customer
                   </Link>
+                  */}
                 </div>
               </div>
             </div>
