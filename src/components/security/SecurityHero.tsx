@@ -52,7 +52,7 @@ export function SecurityHero({ content }: SecurityHeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
             whileHover={{ scale: 1.02 }}
-            className="text-[14px] sm:text-[16px] md:text-[18px] text-white/80 mb-3 sm:mb-4 md:mb-6 tracking-wide"
+            className="text-[16px] sm:text-[18px] md:text-[20px] text-white/80 mb-3 sm:mb-4 md:mb-6 tracking-wide"
           >
             {heroContent.subheadline}
           </motion.div>

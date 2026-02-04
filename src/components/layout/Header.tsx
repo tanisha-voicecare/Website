@@ -32,7 +32,7 @@
  *
  * Nav Links (EXACT from designer-src, desktop lg+ only):
  * - hidden lg:flex items-center gap-8
- * - text-[14px] font-medium text-muted-foreground
+ * - text-[15px] font-medium text-muted-foreground
  * - Hover: text-foreground
  * - Active: text-[#FF4E3A]
  *
@@ -45,8 +45,8 @@
  *
  * CTAs:
  * - flex items-center gap-4
- * - Login: text-sm font-medium text-[#06003F] hover:text-[#FF4E3A]
- * - Button: bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-sm font-medium
+ * - Login: text-[15px] font-medium text-[#06003F] hover:text-[#FF4E3A]
+ * - Button: bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-[15px] font-medium
  *           hover:brightness-110 shadow-sm
  *
  * RESPONSIVE BREAKPOINTS:
@@ -302,7 +302,7 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation - EXACT from designer-src (lg+ only) */}
-        <div className="hidden lg:flex items-center gap-8 text-[14px] font-medium text-[#06003F]/60">
+        <div className="hidden lg:flex items-center gap-8 text-[15px] font-medium text-[#06003F]/60">
           {navigation.map((item) =>
             item.label === 'Platform' ? (
               // Platform with dropdown
@@ -315,7 +315,7 @@ export function Header() {
               >
                 <button
                   type="button"
-                  className={`text-[14px] hover:text-[#06003F] transition-colors flex items-center gap-1 ${
+                  className={`text-[15px] hover:text-[#06003F] transition-colors flex items-center gap-1 ${
                     pathname === item.href || pathname?.startsWith('/platform') ? 'text-[#FF4E3A]' : ''
                   }`}
                   onClick={() => router.push(item.href)}
@@ -344,7 +344,7 @@ export function Header() {
                         dropdownItem.isDisabled ? (
                           <span
                             key={dropdownItem.label}
-                            className="block w-full px-4 py-3 text-left text-[14px] font-medium text-[#06003F]/40 cursor-not-allowed"
+                            className="block w-full px-4 py-3 text-left text-[15px] font-medium text-[#06003F]/40 cursor-not-allowed"
                           >
                             {dropdownItem.label}
                           </span>
@@ -353,7 +353,7 @@ export function Header() {
                             key={dropdownItem.href}
                             href={dropdownItem.href}
                             onClick={(e) => handleAnchorClick(e, dropdownItem.href)}
-                            className="block w-full px-4 py-3 text-left text-[14px] font-medium text-[#06003F] hover:bg-[#FF4E3A]/5 hover:text-[#FF4E3A] transition-colors"
+                            className="block w-full px-4 py-3 text-left text-[15px] font-medium text-[#06003F] hover:bg-[#FF4E3A]/5 hover:text-[#FF4E3A] transition-colors"
                           >
                             {dropdownItem.label}
                           </a>
@@ -366,7 +366,7 @@ export function Header() {
             ) : item.isDisabled ? (
               <span
                 key={item.label}
-                className="text-[14px] text-[#06003F]/40 cursor-not-allowed"
+                className="text-[15px] text-[#06003F]/40 cursor-not-allowed"
               >
                 {item.label}
               </span>
@@ -376,7 +376,7 @@ export function Header() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[14px] hover:text-[#06003F] transition-colors"
+                className="text-[15px] hover:text-[#06003F] transition-colors"
               >
                 {item.label}
               </a>
@@ -384,7 +384,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-[14px] hover:text-[#06003F] transition-colors ${
+                className={`text-[15px] hover:text-[#06003F] transition-colors ${
                   pathname === item.href ? 'text-[#FF4E3A]' : ''
                 }`}
               >
@@ -400,7 +400,7 @@ export function Header() {
             href="https://customer.voicecare.ai/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-sm font-medium hover:brightness-110 transition-all shadow-sm"
+            className="bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-[15px] font-medium hover:brightness-110 transition-all shadow-sm"
           >
             Log in
           </Link>
@@ -409,7 +409,7 @@ export function Header() {
             href="https://customer.voicecare.ai/become-a-customer"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-sm font-medium hover:brightness-110 transition-all shadow-sm"
+            className="bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-[15px] font-medium hover:brightness-110 transition-all shadow-sm"
           >
             Become a Customer
           </Link>

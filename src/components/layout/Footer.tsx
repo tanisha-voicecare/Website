@@ -284,7 +284,7 @@ export function Footer({ content }: FooterProps) {
         {/* Bottom Bar */}
         <div className="py-6 sm:py-8 border-t border-[#06003F]/10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-4 sm:gap-6">
-            <p className="text-[13px] sm:text-[14px] text-[#06003F]/40 text-center lg:text-left order-3 lg:order-1">
+            <p className="text-[14px] text-[#06003F]/40 text-center lg:text-left order-3 lg:order-1">
               {footerContent.copyrightText}
             </p>
 
@@ -309,7 +309,7 @@ export function Footer({ content }: FooterProps) {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-[13px] sm:text-[14px] text-[#06003F]/40 hover:text-[#FF4E3A] transition-colors min-h-[44px] flex items-center"
+                  className="text-[14px] text-[#06003F]/40 hover:text-[#FF4E3A] transition-colors min-h-[44px] flex items-center"
                 >
                   {link.name}
                 </Link>

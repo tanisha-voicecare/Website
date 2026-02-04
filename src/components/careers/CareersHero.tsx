@@ -54,7 +54,7 @@ export function CareersHero({ content }: CareersHeroProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.4 }}
-            className="text-[14px] sm:text-[16px] md:text-[18px] text-white/80 leading-relaxed max-w-[50ch] sm:max-w-2xl md:max-w-3xl mx-auto px-2"
+            className="text-[16px] sm:text-[18px] md:text-[20px] text-white/80 leading-relaxed max-w-[50ch] sm:max-w-2xl md:max-w-3xl mx-auto px-2"
           >
             {heroContent.subheadline}
           </motion.p>

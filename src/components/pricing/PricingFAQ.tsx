@@ -114,7 +114,7 @@ function AccordionItem({ item, isOpen, onToggle, index }: AccordionItemProps) {
             transition={{ duration: 0.3, ease: EASING.smooth }}
           >
             <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-              <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#06003F]/70 leading-relaxed -mt-2">
+              <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/70 leading-relaxed -mt-2">
                 {item.answer}
               </p>
             </div>
@@ -164,7 +164,7 @@ export function PricingFAQ({ content }: PricingFAQProps) {
           <h2 className="text-[28px] sm:text-[36px] md:text-[42px] lg:text-[48px] font-bold text-[#06003F] tracking-tight leading-[1.1] mb-3 sm:mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#06003F]/60 max-w-xl sm:max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/60 max-w-xl sm:max-w-2xl mx-auto leading-relaxed">
             Everything you need to know about our pricing, implementation, and support.
           </p>
         </motion.div>

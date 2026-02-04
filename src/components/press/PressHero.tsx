@@ -32,7 +32,7 @@ export function PressHero({ content }: PressHeroProps) {
           }}
           className="max-w-4xl"
         >
-          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#06003F]/5 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] mb-5 sm:mb-6 md:mb-8 text-[#06003F] border border-[#06003F]/5">
+          <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-[#06003F]/5 text-[10px] sm:text-[12px] font-bold uppercase tracking-[0.1em] mb-5 sm:mb-6 md:mb-8 text-[#06003F] border border-[#06003F]/5">
             <div className="w-1.5 h-1.5 rounded-full bg-[#FF4E3A] animate-pulse" />
             {heroContent.badge}
           </div>

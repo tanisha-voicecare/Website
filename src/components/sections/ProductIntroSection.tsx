@@ -95,7 +95,7 @@ export function ProductIntroSection({ className = '', content }: ProductIntroSec
             transition={{ duration: 0.6, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
             className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-8"
           >
-            <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-[#FF4E3A] uppercase">
+            <span className="text-[10px] sm:text-[12px] font-mono font-bold tracking-[0.3em] text-[#FF4E3A] uppercase">
               {sectionContent.sectionTitle.replace(/\s+/g, '_')}
             </span>
           </motion.div>
@@ -117,7 +117,7 @@ export function ProductIntroSection({ className = '', content }: ProductIntroSec
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            className="text-white/80 mb-8 sm:mb-10 md:mb-14 text-base sm:text-lg md:text-xl lg:text-2xl font-medium max-w-2xl mx-auto leading-relaxed px-2"
+            className="text-white/80 mb-8 sm:mb-10 md:mb-14 text-lg sm:text-xl md:text-[21px] font-medium max-w-2xl mx-auto leading-relaxed px-2"
           >
             {sectionContent.description}
           </motion.p>

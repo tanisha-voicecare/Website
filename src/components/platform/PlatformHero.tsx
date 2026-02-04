@@ -52,7 +52,7 @@ export function PlatformHero({ content }: PlatformHeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
             whileHover={{ scale: 1.02 }}
-            className="text-[14px] sm:text-[16px] md:text-[18px] text-white/80 mb-4 sm:mb-5 md:mb-6 tracking-wide"
+            className="text-[16px] sm:text-[18px] md:text-[20px] text-white/80 mb-4 sm:mb-5 md:mb-6 tracking-wide"
           >
             {heroContent.eyebrow}
           </motion.div>
@@ -74,7 +74,7 @@ export function PlatformHero({ content }: PlatformHeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.4 }}
             whileHover={{ scale: 1.02 }}
-            className="text-[14px] sm:text-[16px] md:text-[18px] text-white/80 mt-4 sm:mt-5 md:mt-6 tracking-wide max-w-[48ch] sm:max-w-2xl md:max-w-3xl mx-auto"
+            className="text-[16px] sm:text-[18px] md:text-[20px] text-white/80 mt-4 sm:mt-5 md:mt-6 tracking-wide max-w-[48ch] sm:max-w-2xl md:max-w-3xl mx-auto"
           >
             {heroContent.description}
           </motion.div>

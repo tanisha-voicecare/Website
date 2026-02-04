@@ -30,7 +30,7 @@ export function ScheduleDemoHero({ content }: ScheduleDemoHeroProps) {
           <h1 className="text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] mb-[16px] sm:mb-[20px] md:mb-[24px] font-bold text-[#06003F] mt-[-25px] sm:mt-[-35px] md:mt-[-50px]">
             {heroContent.headline}
           </h1>
-          <p className="text-[14px] sm:text-[15px] md:text-[16px] text-[#06003F]/60 leading-relaxed mx-auto px-2">
+          <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#06003F]/60 leading-relaxed mx-auto px-2">
             {heroContent.description}
           </p>
         </motion.div>

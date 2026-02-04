@@ -128,7 +128,7 @@ export function ValueMetricsSection({ className = '', content }: ValueMetricsSec
                 </div>
 
                 {/* Description */}
-                <p className="text-[16px] text-[#06003F]/60 leading-relaxed group-hover:text-[#06003F]/80 transition-colors duration-300 max-w-[26rem] mx-auto lg:mx-0">
+                <p className="text-[17px] text-[#06003F]/60 leading-relaxed group-hover:text-[#06003F]/80 transition-colors duration-300 max-w-[26rem] mx-auto lg:mx-0">
                   {metric.description}
                 </p>
               </motion.div>

@@ -88,7 +88,7 @@ export function InfiniteMarqueeSection({ className = '', content }: InfiniteMarq
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] mb-4 sm:mb-6 md:mb-8 text-[#06003F] border border-[#06003F]/5 shadow-sm"
+              className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-white text-[10px] sm:text-[12px] font-bold uppercase tracking-[0.1em] mb-6 sm:mb-8 text-[#06003F] border border-[#06003F]/5 shadow-sm"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[#FF4E3A] animate-pulse" />
               Real-World Impact
@@ -113,7 +113,7 @@ export function InfiniteMarqueeSection({ className = '', content }: InfiniteMarq
               <div className="text-[48px] sm:text-[64px] md:text-[80px] lg:text-[96px] font-bold text-[#FF4E3A] tracking-tight leading-none mb-3 sm:mb-4">
                 {count.toLocaleString()}
               </div>
-              <p className="text-[#06003F]/60 text-[14px] sm:text-[16px] md:text-[18px] font-medium leading-relaxed px-2">
+              <p className="text-[#06003F]/60 text-[17px] sm:text-[19px] font-medium leading-relaxed px-2">
                 Minutes saved per 1,000 phone calls
               </p>
             </motion.div>
