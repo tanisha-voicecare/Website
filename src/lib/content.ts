@@ -246,6 +246,7 @@ export async function listAllContent(): Promise<Array<{
 
 /**
  * Get Homepage Hero content with fallback
+ * Validates content structure to prevent crashes from malformed WordPress data
  */
 export async function getHomepageHeroContent(): Promise<HomepageHeroContent> {
   const fallback: HomepageHeroContent = {
@@ -262,8 +263,25 @@ export async function getHomepageHeroContent(): Promise<HomepageHeroContent> {
     secondaryButtonLink: '/schedule-demo',
   };
 
-  const content = await getContent<HomepageHeroContent>('homepage-hero', fallback);
-  return content || fallback;
+  const content = await getContent<Partial<HomepageHeroContent>>('homepage-hero');
+  
+  // If no content or content structure is invalid (e.g., has wrong fields), use fallback
+  if (!content || (!content.badge && !content.rotatingHeadlines && !content.primaryButtonText)) {
+    return fallback;
+  }
+  
+  // Merge with fallback to ensure all fields exist
+  return {
+    badge: content.badge || fallback.badge,
+    headline: content.headline ?? fallback.headline,
+    rotatingHeadlines: (Array.isArray(content.rotatingHeadlines) && content.rotatingHeadlines.length > 0)
+      ? content.rotatingHeadlines
+      : fallback.rotatingHeadlines,
+    primaryButtonText: content.primaryButtonText || fallback.primaryButtonText,
+    primaryButtonLink: content.primaryButtonLink || fallback.primaryButtonLink,
+    secondaryButtonText: content.secondaryButtonText || fallback.secondaryButtonText,
+    secondaryButtonLink: content.secondaryButtonLink || fallback.secondaryButtonLink,
+  };
 }
 
 /**
@@ -670,6 +688,7 @@ export interface SecurityContent {
 
 /**
  * Get Security page content with fallback
+ * Merges WordPress data with fallback to ensure all required fields exist
  */
 export async function getSecurityContent(): Promise<SecurityContent> {
   const fallback: SecurityContent = {
@@ -724,8 +743,45 @@ export async function getSecurityContent(): Promise<SecurityContent> {
     },
   };
 
-  const content = await getContent<SecurityContent>('security', fallback);
-  return content || fallback;
+  // Use flexible type to handle WordPress field name variations
+  const content = await getContent<Record<string, unknown>>('security');
+  
+  // If no content or content is invalid, use fallback
+  if (!content) {
+    return fallback;
+  }
+  
+  // Type-safe extraction with fallbacks for field name variations
+  const hero = content.hero as Record<string, string> | undefined;
+  const certs = content.certifications as Record<string, string> | undefined;
+  const compliance = content.compliance as Record<string, unknown> | undefined;
+  const complianceTabs = compliance?.tabs as SecurityComplianceContent['tabs'] | undefined;
+  
+  // Deep merge: WordPress data overrides fallback, but missing fields use fallback
+  return {
+    hero: {
+      headline: hero?.headline || fallback.hero.headline,
+      subheadline: hero?.subheadline || hero?.description || fallback.hero.subheadline,
+    },
+    certifications: {
+      title: certs?.title ?? fallback.certifications.title,
+      description: certs?.description || fallback.certifications.description,
+    },
+    compliance: {
+      sectionTitle: (compliance?.sectionTitle as string) || (compliance?.title as string) || fallback.compliance.sectionTitle,
+      sectionDescription: (compliance?.sectionDescription as string) || (compliance?.description as string) || fallback.compliance.sectionDescription,
+      // Use WordPress tabs if they exist and have data, otherwise use fallback
+      tabs: (complianceTabs && Object.keys(complianceTabs).length > 0)
+        ? {
+            infrastructure: complianceTabs.infrastructure || fallback.compliance.tabs.infrastructure,
+            organizational: complianceTabs.organizational || fallback.compliance.tabs.organizational,
+            product: complianceTabs.product || fallback.compliance.tabs.product,
+            internal: complianceTabs.internal || fallback.compliance.tabs.internal,
+            dataPrivacy: complianceTabs.dataPrivacy || fallback.compliance.tabs.dataPrivacy,
+          }
+        : fallback.compliance.tabs,
+    },
+  };
 }
 
 // ============================================
