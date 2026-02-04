@@ -238,7 +238,7 @@ export function Footer({ content }: FooterProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <p className="text-[14px] text-green-800 font-medium">{statusMessage}</p>
+                  <p className="text-[13px] text-[#FF4E3A] font-medium">{statusMessage}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
