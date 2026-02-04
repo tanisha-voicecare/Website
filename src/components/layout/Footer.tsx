@@ -52,7 +52,7 @@ const companyLinks: FooterLink[] = [
 
 // Resources column - EXACT from designer-src
 const resourcesLinks: FooterLink[] = [
-  { name: 'Pricing', href: '#', isDisabled: true }, // Page not implemented yet
+  { name: 'Pricing', href: '/pricing' },
   { name: 'Security', href: '/security' },
   { name: 'Careers', href: '/careers' },
   { name: 'Blogs', href: '#', isDisabled: true }, // WordPress CMS not connected yet

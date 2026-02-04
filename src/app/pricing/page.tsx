@@ -4,7 +4,7 @@
  */
 
 import type { Metadata } from 'next';
-import { PricingHero, PricingFAQ } from '@/components/pricing';
+import { PricingFAQ, ROICalculator } from '@/components/pricing';
 import { generatePageMetadata } from '@/lib/seo';
 import { getPricingContent } from '@/lib/content';
 
@@ -22,7 +22,7 @@ export default async function PricingPage() {
 
   return (
     <>
-      <PricingHero content={content.hero} />
+      <ROICalculator />
       <PricingFAQ content={content.faq} />
     </>
   );
