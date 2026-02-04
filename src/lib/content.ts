@@ -1127,6 +1127,79 @@ export async function getPressContent(): Promise<PressContent> {
 }
 
 // ============================================
+// Pricing Page Content Types
+// ============================================
+
+export interface PricingHeroContent {
+  badge: string;
+  headline: string;
+  description: string;
+}
+
+export interface PricingFAQContent {
+  tabs: {
+    pricing: string[];
+    implementation: string[];
+    support: string[];
+  };
+}
+
+export interface PricingContent {
+  hero: PricingHeroContent;
+  faq: PricingFAQContent;
+}
+
+/**
+ * Get Pricing page content with fallback
+ */
+export async function getPricingContent(): Promise<PricingContent> {
+  const fallback: PricingContent = {
+    hero: {
+      badge: 'Pricing & FAQ',
+      headline: 'Frequently Asked Question',
+      description: 'Everything you need to know about our pricing, implementation, and support.',
+    },
+    faq: {
+      tabs: {
+        pricing: [
+          'We charge a price per successful call or a fixed monthly price (SaaS) based on customer archetype.',
+          'Discounted pricing is available to customers who engage with us through multi-year contracts.',
+        ],
+        implementation: [
+          'We offer a no-cost trial period during which we will make a certain number of agreed upon calls for you to experience the capabilities of the VoiceCare platform.',
+          'Post the trial period, the full-fledged implementation of the platform typically takes 30 calendar days.',
+        ],
+        support: [
+          'For every customer, we offer three kinds of support - technical support, customer success manager and the ability to chat with our team of experts during business hours via VoiceCare\'s portal chat.',
+        ],
+      },
+    },
+  };
+
+  const content = await getContent<Partial<PricingContent>>('pricing');
+  
+  if (!content) {
+    return fallback;
+  }
+  
+  // Deep merge with fallback
+  return {
+    hero: {
+      badge: content.hero?.badge || fallback.hero.badge,
+      headline: content.hero?.headline || fallback.hero.headline,
+      description: content.hero?.description || fallback.hero.description,
+    },
+    faq: {
+      tabs: {
+        pricing: content.faq?.tabs?.pricing || fallback.faq.tabs.pricing,
+        implementation: content.faq?.tabs?.implementation || fallback.faq.tabs.implementation,
+        support: content.faq?.tabs?.support || fallback.faq.tabs.support,
+      },
+    },
+  };
+}
+
+// ============================================
 // Partner With Us Page Content Types
 // ============================================
 
