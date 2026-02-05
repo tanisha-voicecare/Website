@@ -92,7 +92,10 @@ const DEFAULT_ITEMS: PressItemContent[] = [
 
 export function PressCoverage({ coverageTitle = 'Recent Coverage', items }: PressCoverageProps) {
   const pressItems = items || DEFAULT_ITEMS;
-  const featuredItems = pressItems.filter((item) => item.featured);
+  // Sort by ID to ensure consistent order, then filter
+  const featuredItems = pressItems
+    .filter((item) => item.featured)
+    .sort((a, b) => a.id - b.id);
   
   if (featuredItems.length === 0) return null;
 
@@ -108,36 +111,38 @@ export function PressCoverage({ coverageTitle = 'Recent Coverage', items }: Pres
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7 md:gap-8">
-          {featuredItems.map((item, index) => {
+          {featuredItems.map((item) => {
             // Split quote into paragraphs (EXACT logic from designer-src)
             const paragraphs = item.quote.split('\n\n');
             const firstParagraph = paragraphs[0];
             const restOfQuote = paragraphs.slice(1).join('\n\n');
             
-            // PR Newswire gets taller logo height
-            const isPRNewswire = item.outlet === 'PR Newswire';
+            // Logo height based on outlet
+            const getLogoHeight = () => {
+              if (item.outlet === 'PR Newswire') return 'h-16 md:h-20'; // Increased
+              if (item.outlet === 'Forbes') return 'h-12 md:h-14'; // Perfect - keep
+              if (item.outlet === "Becker's Hospital Review") return 'h-20 md:h-24'; // Increased
+              if (item.outlet === 'MedCity News') return 'h-18 md:h-18'; // Increased
+              return 'h-16 md:h-20'; // Default for HIT, Fierce, Yahoo - perfect
+            };
 
             return (
               <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                }}
+                key={`press-${item.id}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
                 whileHover={{ y: -8 }}
                 className="group cursor-pointer bg-white border border-[#06003F]/5 rounded-[12px] p-6 sm:p-7 md:p-8 hover:border-[#FF4E3A]/20 transition-all duration-500 flex flex-col w-full min-w-0 overflow-hidden"
               >
-                {/* Logo container */}
+                {/* Logo */}
                 <div className="mb-6 sm:mb-7 md:mb-8 shrink-0">
                   <Image
                     src={item.logo}
                     alt={item.outlet}
                     width={200}
                     height={96}
-                    className={`${isPRNewswire ? 'h-20 sm:h-22 md:h-24' : 'h-16 sm:h-18 md:h-20'} w-auto object-contain object-left shrink-0`}
+                    className={`object-contain object-left ${getLogoHeight()}`}
                   />
                 </div>
 

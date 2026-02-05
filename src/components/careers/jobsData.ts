@@ -51,7 +51,7 @@ export const jobsData: JobData[] = [
     locations: ['Bay Area', 'India'],
     type: ['Remote', 'Full-time', 'Part-time'],
     description:
-      "Join us as a Principal or Senior Security Engineer (Part-time/Full-time) and play a crucial role in safeguarding VoiceCare AI's digital landscape. This position is pivotal in supporting our dynamic team—including researchers, engineers, and staff—ensuring they have the secure and efficient tools necessary for their roles. As a central figure connecting applied artificial intelligence, engineering, product development, and infrastructure, you'll spearhead the development and enforcement of robust security practices across the company.",
+      "Join us as a Principal or Senior Security Engineer (Part-time/Full-time) and play a crucial role in safeguarding VoiceCare AI's digital landscape. This position is pivotal in supporting our dynamic team, including researchers, engineers, and staff, ensuring they have the secure and efficient tools necessary for their roles. As a central figure connecting applied artificial intelligence, engineering, product development, and infrastructure, you'll spearhead the development and enforcement of robust security practices across the company.",
     responsibilities: [
       "Develop, implement, and maintain security protocols to shield the company's information assets from unauthorized access and potential threats.",
       'Continuously monitor our systems to promptly detect and address security vulnerabilities and breaches.',

@@ -708,83 +708,55 @@ export async function getSecurityContent(): Promise<SecurityContent> {
       sectionDescription: 'We provide an overview of our dedication to compliance and security, offering access to certifications, documentation, and details on our strict control adherence.',
       tabs: {
         infrastructure: [
-          { title: 'Service Infrastructure', description: 'We maintain our service infrastructure' },
-          { title: 'Production Data Backups', description: 'We conduct regular backups of production data' },
-          { title: 'Multi-factor Authentication', description: 'Multi-factor authentication (MFA) is enforced on all systems' },
-          { title: 'Network Protection', description: 'Firewalls and intrusion prevention and detection systems protect our network' },
+          { title: '', description: 'We maintain our service infrastructure' },
+          { title: '', description: 'We conduct regular backups of production data' },
+          { title: '', description: 'Multi-factor authentication (MFA) is enforced on all systems' },
+          { title: '', description: 'Firewalls and intrusion prevention and detection systems protect our network' },
         ],
         organizational: [
-          { title: 'Endpoint Encryption', description: 'All endpoints are encrypted' },
-          { title: 'Anti-malware', description: 'Anti-malware technology is utilized' },
-          { title: 'Password Policy', description: 'Password policy is enforced' },
-          { title: 'Security Training', description: 'Security training is implemented' },
-          { title: 'Contractor Agreements', description: 'Contractors sign Confidentiality Agreements and BAAs' },
-          { title: 'Production Inventory', description: 'Production inventory is maintained' },
-          { title: 'Employee Agreements', description: 'Employees acknowledge Confidentiality Agreements' },
+          { title: '', description: 'All endpoints are encrypted' },
+          { title: '', description: 'Anti-malware technology is utilized' },
+          { title: '', description: 'Password policy is enforced' },
+          { title: '', description: 'Security training is implemented' },
+          { title: '', description: 'Contractors sign Confidentiality Agreements and BAAs' },
+          { title: '', description: 'Production inventory is maintained' },
+          { title: '', description: 'Employees acknowledge Confidentiality Agreements' },
         ],
         product: [
-          { title: 'Data Encryption', description: 'Data is encrypted both at rest and in transit' },
-          { title: 'Vulnerability Monitoring', description: 'Vulnerability and system monitoring procedures have been established' },
+          { title: '', description: 'Data is encrypted both at rest and in transit' },
+          { title: '', description: 'Vulnerability and system monitoring procedures have been established' },
         ],
         internal: [
-          { title: 'Vulnerability Scanning', description: 'Scanned for and remediated vulnerabilities' },
-          { title: 'Incident Response', description: 'Tested the incident response plan' },
-          { title: 'Access Requests', description: 'Processed access requests as required' },
-          { title: 'Production Access', description: 'Restricted production deployment access' },
-          { title: 'Change Management', description: 'Enforced change management procedures' },
-          { title: 'Configuration Management', description: 'Established a configuration management system' },
-          { title: 'Support System', description: 'Provided an available support system' },
-          { title: 'Third-party Agreements', description: 'Established third-party agreements' },
-          { title: 'Cybersecurity Insurance', description: 'Maintained cybersecurity insurance' },
-          { title: 'System Capacity', description: 'Reviewed system capacity' },
+          { title: '', description: 'Scanned for and remediated vulnerabilities' },
+          { title: '', description: 'Tested the incident response plan' },
+          { title: '', description: 'Processed access requests as required' },
+          { title: '', description: 'Restricted production deployment access' },
+          { title: '', description: 'Enforced change management procedures' },
+          { title: '', description: 'Established a configuration management system' },
+          { title: '', description: 'Provided an available support system' },
+          { title: '', description: 'Established third-party agreements' },
+          { title: '', description: 'Maintained cybersecurity insurance' },
+          { title: '', description: 'Reviewed system capacity' },
         ],
         dataPrivacy: [
-          { title: 'Privacy Policy', description: 'Established privacy policy' },
-          { title: 'Privacy Training', description: 'Security awareness and privacy training' },
+          { title: '', description: 'Established privacy policy' },
+          { title: '', description: 'Security awareness and privacy training' },
         ],
       },
     },
   };
 
-  // Use flexible type to handle WordPress field name variations
-  const content = await getContent<Record<string, unknown>>('security');
-  
-  // If no content or content is invalid, use fallback
-  if (!content) {
-    return fallback;
-  }
-  
-  // Type-safe extraction with fallbacks for field name variations
-  const hero = content.hero as Record<string, string> | undefined;
-  const certs = content.certifications as Record<string, string> | undefined;
-  const compliance = content.compliance as Record<string, unknown> | undefined;
-  const complianceTabs = compliance?.tabs as SecurityComplianceContent['tabs'] | undefined;
-  
-  // Deep merge: WordPress data overrides fallback, but missing fields use fallback
-  return {
-    hero: {
-      headline: hero?.headline || fallback.hero.headline,
-      subheadline: hero?.subheadline || hero?.description || fallback.hero.subheadline,
-    },
-    certifications: {
-      title: certs?.title ?? fallback.certifications.title,
-      description: certs?.description || fallback.certifications.description,
-    },
-    compliance: {
-      sectionTitle: (compliance?.sectionTitle as string) || (compliance?.title as string) || fallback.compliance.sectionTitle,
-      sectionDescription: (compliance?.sectionDescription as string) || (compliance?.description as string) || fallback.compliance.sectionDescription,
-      // Use WordPress tabs if they exist and have data, otherwise use fallback
-      tabs: (complianceTabs && Object.keys(complianceTabs).length > 0)
-        ? {
-            infrastructure: complianceTabs.infrastructure || fallback.compliance.tabs.infrastructure,
-            organizational: complianceTabs.organizational || fallback.compliance.tabs.organizational,
-            product: complianceTabs.product || fallback.compliance.tabs.product,
-            internal: complianceTabs.internal || fallback.compliance.tabs.internal,
-            dataPrivacy: complianceTabs.dataPrivacy || fallback.compliance.tabs.dataPrivacy,
-          }
-        : fallback.compliance.tabs,
-    },
-  };
+  // TEMPORARY: Using designer's fallback content directly
+  // TODO: Update WordPress admin panel with correct content, then remove this bypass
+  // WordPress content to update:
+  // - Hero headline: "Healthcare Data. Maximum Security."
+  // - Hero subheadline: "We are SOC 2 Type II attested, HIPAA-compliant."
+  // - Certifications title: (empty)
+  // - Certifications description: "Independently verified and certified to meet the highest standards of healthcare data security and compliance."
+  // - Compliance section title: "Compliance and Monitoring"
+  // - Compliance section description: "We provide an overview of our dedication to compliance and security, offering access to certifications, documentation, and details on our strict control adherence."
+  // - All card titles should be EMPTY (no titles, only descriptions)
+  return fallback;
 }
 
 // ============================================
@@ -874,12 +846,12 @@ export async function getCompanyContent(): Promise<CompanyContent> {
       sectionDescription: 'Core principles that guide how we build, ship, and deliver excellence.',
       principles: [
         { title: 'Solving Customer Problems', description: 'We relentlessly focus on solving real customer problems with measurable value.' },
-        { title: 'Innovate Constantly', description: "Innovation isn't a department—it's our operating system for staying ahead." },
+        { title: 'Innovate Constantly', description: "Innovation isn't a department, it's our operating system for staying ahead." },
         { title: 'Go Above & Beyond', description: "Good enough isn't in our vocabulary. We deliver exceptional outcomes." },
-        { title: 'Take Ownership', description: 'We take full ownership of our commitments—no excuses, no finger-pointing.' },
-        { title: 'Default Trust', description: 'Transparency, honesty, and integrity guide every interaction with our team.' },
+        { title: 'Take Ownership', description: 'We take full ownership of our commitments, no excuses, no finger-pointing.' },
+        { title: 'Default T rust', description: 'Transparency, honesty, and integrity guide every interaction with our team.' },
         { title: 'Think in First Principles', description: 'We break down complex problems to fundamentals, building from the ground up.' },
-        { title: 'Attention to Detail', description: 'Excellence lives in the details—we sweat the small stuff because it matters.' },
+        { title: 'Attention to Detail', description: 'Excellence lives in the details, we sweat the small stuff because it matters.' },
       ],
     },
     advisors: {
@@ -1053,7 +1025,7 @@ export async function getPressContent(): Promise<PressContent> {
   const fallback: PressContent = {
     hero: {
       badge: 'Press Coverage',
-      headline: 'Press',
+      headline: 'Press Coverage',
       description: "Explore our remarkable journey through extensive press features, media highlights that showcase our brand's growth and impact.",
     },
     coverageTitle: 'Recent Coverage',

@@ -84,7 +84,7 @@ const navigation: NavItem[] = [
   { label: 'Platform', href: '/platform' },
   { label: 'Security', href: '/security' },
   { label: 'Company', href: '/company' },
-  { label: 'Partner with Us', href: '/partner-with-us' },
+  // { label: 'Partner with Us', href: '/partner-with-us' }, // Commented out - not needed for now
   { label: 'Schedule a Demo', href: '/schedule-demo' },
 ];
 
@@ -400,11 +400,10 @@ export function Header() {
             href="https://customer.voicecare.ai/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#FF4E3A] text-white px-4 py-1.5 rounded-[4px] text-[15px] font-medium hover:brightness-110 transition-all shadow-sm"
+            className="text-[15px] font-medium text-[#06003F] hover:text-[#FF4E3A] transition-colors"
           >
             Log in
           </Link>
-          {/* Become a Customer button - commented out for now
           <Link
             href="https://customer.voicecare.ai/become-a-customer"
             target="_blank"
@@ -413,7 +412,6 @@ export function Header() {
           >
             Become a Customer
           </Link>
-          */}
         </div>
 
         {/* Mobile menu button (visible below lg) */}
@@ -539,12 +537,11 @@ export function Header() {
                     href="https://customer.voicecare.ai/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full px-4 py-3 min-h-[44px] bg-[#FF4E3A] text-white text-center text-sm font-medium rounded-[4px] hover:brightness-110 transition-all"
+                    className="block w-full px-4 py-3 min-h-[44px] text-[#06003F] text-center text-sm font-medium rounded-[4px] border border-[#06003F]/10 hover:border-[#FF4E3A] hover:text-[#FF4E3A] transition-all"
                     onClick={closeMobileMenu}
                   >
                     Log in
                   </Link>
-                  {/* Become a Customer button - commented out for now
                   <Link
                     href="https://customer.voicecare.ai/become-a-customer"
                     target="_blank"
@@ -554,7 +551,6 @@ export function Header() {
                   >
                     Become a Customer
                   </Link>
-                  */}
                 </div>
               </div>
             </div>

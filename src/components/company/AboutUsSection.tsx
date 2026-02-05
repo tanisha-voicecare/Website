@@ -25,7 +25,7 @@ const DEFAULT_CONTENT: AboutUsSectionContent = {
 export function AboutUsSection({ content }: AboutUsSectionProps) {
   const sectionContent = content || DEFAULT_CONTENT;
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 bg-white">
+    <section className="relative pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-24 md:pb-32 bg-white">
       <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 max-w-7xl relative z-10">
         {/* Centered Header */}
         <motion.div

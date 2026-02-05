@@ -67,7 +67,7 @@ export function AnnouncementBanner({ content }: AnnouncementBannerProps) {
                 key={`first-${announcement.id}`}
                 className="flex items-center gap-8"
               >
-                <div className="text-[13px] sm:text-[15px] text-white/90">
+                <div className="text-[15px] text-white/90">
                   <span className="font-semibold text-white">
                     {announcement.highlight}
                   </span>{' '}
@@ -82,7 +82,7 @@ export function AnnouncementBanner({ content }: AnnouncementBannerProps) {
                 key={`second-${announcement.id}`}
                 className="flex items-center gap-8"
               >
-                <div className="text-[13px] sm:text-[15px] text-white/90">
+                <div className="text-[15px] text-white/90">
                   <span className="font-semibold text-white">
                     {announcement.highlight}
                   </span>{' '}

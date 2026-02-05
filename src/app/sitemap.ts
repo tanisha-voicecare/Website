@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/careers',
     '/press',
     '/schedule-demo',
-    '/partner-with-us',
+    // '/partner-with-us', // Commented out - not needed for now
     '/who-we-serve',
     '/privacy-policy',
     '/terms-of-service',

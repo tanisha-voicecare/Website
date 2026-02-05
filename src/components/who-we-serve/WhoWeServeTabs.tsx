@@ -27,6 +27,7 @@ import {
   KidneyIcon,
   ToothIcon,
 } from './MedicalIcons';
+import { RevenueCycleIcon } from './RevenueCycleIcon';
 import type { WhoWeServeContent, WhoWeServeTabCard } from '@/lib/content';
 
 // ============================================
@@ -68,9 +69,9 @@ interface TabContent {
 
 const tabs: Tab[] = [
   { id: 'healthcare-stakeholders', label: 'Healthcare Stakeholders' },
+  { id: 'dental', label: 'Dental' },
   { id: 'specialist-practice', label: 'Specialist Practice Providers' },
   { id: 'revenue-cycle', label: 'Revenue Cycle Management' },
-  { id: 'dental', label: 'Dental' },
 ];
 
 // ============================================
@@ -85,6 +86,7 @@ const ICON_MAP: Record<string, IconComponent> = {
   'Cardiology': Heart,
   'Oncology': Activity,
   'Infectious Diseases': VirusIcon,
+  'Infectious diseases': VirusIcon,
   'Gastroenterology': StomachIcon,
   'Nephrology': KidneyIcon,
   'Neurology': Brain,
@@ -94,7 +96,7 @@ const ICON_MAP: Record<string, IconComponent> = {
   'Anesthesia': Syringe,
   'Orthopedics': Bone,
   'Pediatrics': Baby,
-  'Revenue Cycle Management': Plus,
+  'Revenue Cycle Management': RevenueCycleIcon,
   'Dental': ToothIcon,
 };
 
@@ -105,7 +107,7 @@ const ICON_MAP: Record<string, IconComponent> = {
 const DEFAULT_TABS_CONTENT: WhoWeServeContent['tabs'] = {
   healthcareStakeholders: {
     title: 'Healthcare Stakeholders',
-    subtitle: 'Transforming healthcare operations across the industry.',
+    subtitle: 'We collaborate with stakeholders across different verticals within the healthcare domain.',
     cards: [
       { title: 'Health Systems', description: 'Streamline administrative processes by automating insurance verification and authorization calls, reducing wait times and improving patient flow. Empower healthcare teams to concentrate on delivering quality care rather than handling repetitive administrative tasks.' },
       { title: 'Labs & Diagnostics', description: 'Optimize operational efficiency by automating insurance pre-authorization calls and patient follow-ups, allowing lab technicians and diagnostic professionals to focus on accurate and timely test results.' },
@@ -115,9 +117,11 @@ const DEFAULT_TABS_CONTENT: WhoWeServeContent['tabs'] = {
   },
   specialistPractice: {
     title: 'Specialist Practice Providers',
-    subtitle: 'Serving specialized healthcare segments with tailored solutions.',
+    subtitle: 'We specialize in providing efficient, customized solutions for specialized segments within the healthcare industry.',
     cards: [
+      { title: 'Orthopedics', description: 'Empower rheumatology teams to deliver personalized care and effective treatments with enhanced administrative efficiency.' },
       { title: 'Cardiology', description: 'Improve patient satisfaction and outcomes by automating insurance interactions, facilitating quicker approvals for cardiac treatments and procedures.' },
+      { title: 'Pediatrics', description: 'Streamline patient care with automated insurance verification and pre-authorization processes tailored for hematological treatments and diagnostics, ensuring timely access to critical medical interventions.' },
       { title: 'Oncology', description: 'Enhance operational efficiency in oncology practices by automating insurance billing and claims management, reducing administrative overhead and optimizing revenue cycles.' },
       { title: 'Infectious diseases', description: 'Improve patient outcomes by automating insurance-related tasks, facilitating faster approvals and seamless coordination of treatments for infectious diseases.' },
       { title: 'Gastroenterology', description: 'Enhance operational efficiency in gastroenterology practices by automating insurance billing and claims processing, reducing administrative workload and optimizing revenue cycles.' },
@@ -127,8 +131,6 @@ const DEFAULT_TABS_CONTENT: WhoWeServeContent['tabs'] = {
       { title: 'Rheumatology', description: 'Empower rheumatology teams to deliver personalized care and effective treatments with enhanced administrative efficiency.' },
       { title: 'Hematology', description: 'Streamline patient care with automated insurance verification and pre-authorization processes tailored for hematological treatments and diagnostics, ensuring timely access to critical medical interventions.' },
       { title: 'Anesthesia', description: 'Improve revenue cycles while delivering comprehensive urological care and innovative treatment plans.' },
-      { title: 'Orthopedics', description: 'Empower rheumatology teams to deliver personalized care and effective treatments with enhanced administrative efficiency.' },
-      { title: 'Pediatrics', description: 'Streamline patient care with automated insurance verification and pre-authorization processes tailored for hematological treatments and diagnostics, ensuring timely access to critical medical interventions.' },
     ],
   },
   revenueCycle: {
@@ -140,7 +142,7 @@ const DEFAULT_TABS_CONTENT: WhoWeServeContent['tabs'] = {
   },
   dental: {
     title: 'Dental',
-    subtitle: 'Transforming dental practice operations.',
+    subtitle: 'Transforming dental practice operations with AI-powered automation.',
     cards: [
       { title: 'Dental', description: 'Improve revenue integrity with AI-driven automation of insurance eligibility verification and denial management processes. Ensure accurate billing and coding to maximize reimbursements and minimize revenue leakage.' },
     ],
@@ -249,7 +251,7 @@ export function WhoWeServeTabs({ content }: WhoWeServeTabsProps) {
           </div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
             {currentContent.cards.map((card, index) => {
               const IconComponent = card.icon;
               return (

@@ -76,7 +76,7 @@ export function ValueMetricsSection({ className = '', content }: ValueMetricsSec
             {sectionContent.sectionTitle}
           </h2>
 
-          <p className="text-base sm:text-lg text-[#06003F]/60 leading-relaxed font-medium max-w-[22rem] sm:max-w-3xl mx-auto text-center">
+          <p className="text-[16px] sm:text-[17px] md:text-[18px] text-[#06003F]/60 leading-relaxed font-medium max-w-[22rem] sm:max-w-3xl mx-auto text-center">
             {sectionContent.sectionDescription}
           </p>
         </motion.div>

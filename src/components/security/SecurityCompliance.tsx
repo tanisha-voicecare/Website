@@ -42,8 +42,14 @@ const ANIMATION_DURATION = {
 
 type TabKey = 'infrastructure' | 'organizational' | 'product' | 'internal' | 'data';
 
-// Icon rotation for variety
-const ICON_SEQUENCE: LucideIcon[] = [Server, Database, Key, ShieldCheck, Lock, Eye, FileCheck, Bell, Activity, Shield];
+// Icon mappings per tab (matching designer's specific icon assignments)
+const TAB_ICONS: Record<TabKey, LucideIcon[]> = {
+  infrastructure: [Server, Database, Key, ShieldCheck],
+  organizational: [Lock, ShieldCheck, Key, Activity, FileCheck, Database, FileCheck],
+  product: [Lock, Eye],
+  internal: [Eye, Bell, Key, Lock, FileCheck, Server, Bell, FileCheck, Shield, Activity],
+  data: [FileCheck, Activity],
+};
 
 // Tab configuration
 const tabs: { key: TabKey; label: string }[] = [
@@ -58,6 +64,7 @@ const tabs: { key: TabKey; label: string }[] = [
 // Default Content (Fallback) - Original content
 // ============================================
 
+// Designer's exact content - NO titles on cards, only descriptions
 const DEFAULT_CONTENT: SecurityComplianceContent = {
   sectionTitle: 'Compliance and Monitoring',
   sectionDescription: 'We provide an overview of our dedication to compliance and security, offering access to certifications, documentation, and details on our strict control adherence.',
@@ -153,7 +160,7 @@ export function SecurityCompliance({ content }: SecurityComplianceProps) {
             ease: EASING.smooth,
             delay: 0.1,
           }}
-          className="flex overflow-x-auto md:overflow-visible md:flex-wrap md:justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 md:mb-16 pb-2 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0 scrollbar-hide"
+          className="flex overflow-x-auto md:overflow-visible md:flex-wrap md:justify-center gap-2 sm:gap-3 mb-10 sm:mb-14 md:mb-[64px] md:mt-[-40px] pb-2 md:pb-0 -mx-4 px-4 sm:-mx-6 sm:px-6 md:mx-0 md:px-0 scrollbar-hide"
         >
           {tabs.map((tab) => (
             <motion.button
@@ -179,10 +186,11 @@ export function SecurityCompliance({ content }: SecurityComplianceProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: EASING.smooth }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mb-12 sm:mb-16 md:mb-[70px]"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 mb-12 sm:mb-16 md:mb-[70px]"
         >
           {currentFeatures.map((feature, index) => {
-            const Icon = ICON_SEQUENCE[index % ICON_SEQUENCE.length];
+            const tabIcons = TAB_ICONS[activeTab];
+            const Icon = tabIcons[index % tabIcons.length];
             return (
               <motion.div
                 key={index}

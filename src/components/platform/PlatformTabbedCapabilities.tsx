@@ -236,13 +236,6 @@ export function PlatformTabbedCapabilities({ content }: PlatformTabbedCapabiliti
 
                     {/* Video Player Container */}
                     <div className="bg-white rounded-[8px] sm:rounded-[10px] md:rounded-[12px] p-3 sm:p-4 md:p-6 border border-[#06003F]/10">
-                      {/* Mac-style window buttons */}
-                      <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 pb-3 sm:pb-4 border-b border-[#06003F]/5">
-                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400" />
-                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400" />
-                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400" />
-                      </div>
-
                       {/* Video Player */}
                       <VideoPlayer 
                         video={cap.video} 

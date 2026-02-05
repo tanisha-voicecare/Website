@@ -27,12 +27,12 @@ const DEFAULT_CONTENT: PrinciplesSectionContent = {
   sectionDescription: 'Core principles that guide how we build, ship, and deliver excellence.',
   principles: [
     { title: 'Solving Customer Problems', description: 'We relentlessly focus on solving real customer problems with measurable value.' },
-    { title: 'Innovate Constantly', description: "Innovation isn't a department—it's our operating system for staying ahead." },
+    { title: 'Innovate Constantly', description: "Innovation isn't a department, it's our operating system for staying ahead." },
     { title: 'Go Above & Beyond', description: "Good enough isn't in our vocabulary. We deliver exceptional outcomes." },
-    { title: 'Take Ownership', description: 'We take full ownership of our commitments—no excuses, no finger-pointing.' },
+    { title: 'Take Ownership', description: 'We take full ownership of our commitments, no excuses, no finger-pointing.' },
     { title: 'Default Trust', description: 'Transparency, honesty, and integrity guide every interaction with our team.' },
     { title: 'Think in First Principles', description: 'We break down complex problems to fundamentals, building from the ground up.' },
-    { title: 'Attention to Detail', description: 'Excellence lives in the details—we sweat the small stuff because it matters.' },
+    { title: 'Attention to Detail', description: 'Excellence lives in the details, we sweat the small stuff because it matters.' },
   ],
 };
 

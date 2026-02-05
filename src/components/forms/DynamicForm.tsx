@@ -37,6 +37,10 @@ interface DynamicFormProps {
   showLabels?: boolean;
   /** Optional: Pre-fill values */
   initialValues?: Record<string, string>;
+  /** Optional: Override labels for fields (key: field name, value: display label) */
+  labelOverrides?: Record<string, string>;
+  /** Optional: Override placeholders for fields */
+  placeholderOverrides?: Record<string, string>;
 }
 
 // ============================================
@@ -85,7 +89,9 @@ function FieldRenderer({ field, value, onChange, showLabel = true }: FieldRender
           onChange={handleChange}
           className={`${inputBaseStyles} appearance-none`}
         >
-          <option value="">{field.placeholder || `Select ${field.label.toLowerCase()}`}</option>
+          <option value="" disabled className="text-gray-400">
+            {field.placeholder || `Select ${field.label.toLowerCase()}`}
+          </option>
           {field.options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
@@ -335,6 +341,8 @@ export function DynamicForm({
   layout = 'default',
   showLabels = true,
   initialValues = {},
+  labelOverrides = {},
+  placeholderOverrides = {},
 }: DynamicFormProps) {
   const [formStructure, setFormStructure] = useState<FormStructure | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>(initialValues);
@@ -342,6 +350,70 @@ export function DynamicForm({
   const [statusMessage, setStatusMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Helper: Remove serial numbers from option labels (e.g., "1. Option" → "Option")
+  const cleanOptionLabel = (label: string): string => {
+    return label.replace(/^\d+\.\s*/, '');
+  };
+
+  // Helper: Remove asterisks and extra spaces from placeholder
+  const cleanPlaceholder = (placeholder: string | undefined): string | undefined => {
+    if (!placeholder) return placeholder;
+    return placeholder.replace(/\s*\*\s*$/, '').trim();
+  };
+
+  // Apply label and placeholder overrides to a field
+  // Checks: exact name match, label match, partial name match (for MetForm dynamic names)
+  const applyOverrides = (field: FormField): FormField => {
+    // Try exact name match first
+    let overriddenLabel = labelOverrides[field.name];
+    let overriddenPlaceholder = placeholderOverrides[field.name];
+    
+    // If no exact match, try matching by current label
+    if (!overriddenLabel && field.label && labelOverrides[field.label]) {
+      overriddenLabel = labelOverrides[field.label];
+    }
+    if (!overriddenPlaceholder && field.label && placeholderOverrides[field.label]) {
+      overriddenPlaceholder = placeholderOverrides[field.label];
+    }
+    
+    // If still no match, try partial name match (for MetForm names like "mf-text-abc123")
+    if (!overriddenLabel) {
+      for (const [key, value] of Object.entries(labelOverrides)) {
+        if (field.name.startsWith(key) || field.name.includes(key)) {
+          overriddenLabel = value;
+          break;
+        }
+      }
+    }
+    if (!overriddenPlaceholder) {
+      for (const [key, value] of Object.entries(placeholderOverrides)) {
+        if (field.name.startsWith(key) || field.name.includes(key)) {
+          overriddenPlaceholder = value;
+          break;
+        }
+      }
+    }
+    
+    // Clean up the placeholder (remove asterisks - they should be in label only)
+    const finalPlaceholder = cleanPlaceholder(overriddenPlaceholder || field.placeholder);
+    
+    // Clean up select options (remove serial numbers like "1. ", "2. ", etc.)
+    let cleanedOptions = field.options;
+    if (field.options && field.options.length > 0) {
+      cleanedOptions = field.options.map(opt => ({
+        ...opt,
+        label: cleanOptionLabel(opt.label),
+      }));
+    }
+    
+    return {
+      ...field,
+      label: overriddenLabel || field.label,
+      placeholder: finalPlaceholder,
+      options: cleanedOptions,
+    };
+  };
 
   // Fetch form structure on mount (only when formId changes)
   useEffect(() => {
@@ -460,12 +532,13 @@ export function DynamicForm({
           <>
             {/* Render fields in pairs */}
             {formStructure.fields.reduce<JSX.Element[]>((rows, field, index, arr) => {
+              const overriddenField = applyOverrides(field);
               // Skip textarea and file fields from grid - they go full width
               if (field.type === 'textarea' || field.type === 'file' || field.type === 'checkbox' || field.type === 'gdpr' || field.type === 'optin') {
                 rows.push(
                   <div key={field.name}>
                     <FieldRenderer
-                      field={field}
+                      field={overriddenField}
                       value={formData[field.name] || ''}
                       onChange={handleFieldChange}
                       showLabel={showLabels}
@@ -478,17 +551,18 @@ export function DynamicForm({
                 const nextIsWide = nextField && (nextField.type === 'textarea' || nextField.type === 'file' || nextField.type === 'checkbox');
                 
                 if (nextField && !nextIsWide) {
+                  const overriddenNextField = applyOverrides(nextField);
                   // Pair with next field
                   rows.push(
                     <div key={`row-${index}`} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                       <FieldRenderer
-                        field={field}
+                        field={overriddenField}
                         value={formData[field.name] || ''}
                         onChange={handleFieldChange}
                         showLabel={showLabels}
                       />
                       <FieldRenderer
-                        field={nextField}
+                        field={overriddenNextField}
                         value={formData[nextField.name] || ''}
                         onChange={handleFieldChange}
                         showLabel={showLabels}
@@ -500,7 +574,7 @@ export function DynamicForm({
                   rows.push(
                     <div key={field.name} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                       <FieldRenderer
-                        field={field}
+                        field={overriddenField}
                         value={formData[field.name] || ''}
                         onChange={handleFieldChange}
                         showLabel={showLabels}
@@ -517,7 +591,7 @@ export function DynamicForm({
           formStructure.fields.map((field) => (
             <FieldRenderer
               key={field.name}
-              field={field}
+              field={applyOverrides(field)}
               value={formData[field.name] || ''}
               onChange={handleFieldChange}
               showLabel={showLabels}

@@ -242,12 +242,14 @@ export function PricingFAQ({ content }: PricingFAQProps) {
             >
               Schedule a Demo
             </a>
+            {/* Partner with Us button - commented out for now
             <a
               href="/partner-with-us"
               className="inline-flex items-center justify-center px-8 py-3.5 bg-[#06003F] text-white rounded-lg font-medium hover:bg-[#06003F]/90 transition-all text-[15px]"
             >
               Partner with Us
             </a>
+            */}
           </div>
         </motion.div>
       </div>
