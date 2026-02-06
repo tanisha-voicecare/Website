@@ -1373,7 +1373,7 @@ export async function getLayoutContent(): Promise<LayoutContent> {
       newsletterTitle: 'Stay Updated',
       newsletterDescription: 'Get the latest news and updates delivered to your inbox.',
       socialLabel: 'Connect with us',
-      linkedinUrl: 'https://linkedin.com',
+      linkedinUrl: 'https://www.linkedin.com/company/voicecare/about/',
       companyColumnTitle: 'Company',
       resourcesColumnTitle: 'Resources',
       copyrightText: '© 2025 VoiceCare AI. All rights reserved.',
