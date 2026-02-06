@@ -613,6 +613,10 @@ export async function getWhoWeServeContent(): Promise<WhoWeServeContent> {
         subtitle: 'Serving specialized healthcare segments with tailored solutions.',
         cards: [
           {
+            title: 'Orthopedics',
+            description: 'Empower rheumatology teams to deliver personalized care and effective treatments with enhanced administrative efficiency.',
+          },
+          {
             title: 'Cardiology',
             description: 'Improve patient satisfaction and outcomes by automating insurance interactions, facilitating quicker approvals for cardiac treatments and procedures.',
           },
@@ -651,10 +655,6 @@ export async function getWhoWeServeContent(): Promise<WhoWeServeContent> {
           {
             title: 'Anesthesia',
             description: 'Improve revenue cycles while delivering comprehensive urological care and innovative treatment plans.',
-          },
-          {
-            title: 'Orthopedics',
-            description: 'Empower rheumatology teams to deliver personalized care and effective treatments with enhanced administrative efficiency.',
           },
           {
             title: 'Pediatrics',
