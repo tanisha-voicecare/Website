@@ -28,7 +28,7 @@ const DEFAULT_CONTENT: ProductIntroContent = {
   heading: 'Introducing Joy',
   description: 'Your automated Voice AI Agent, designed to optimize and ease administrative burden by supercharging your workflow to be more efficient and empathetic.',
   buttonText: 'Experience It',
-  buttonLink: '#experience',
+  buttonLink: '/platform',
 };
 
 // ============================================

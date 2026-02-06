@@ -315,7 +315,7 @@ export async function getHomepageHeroContent(): Promise<HomepageHeroContent> {
       'Improving patient outcomes',
     ],
     primaryButtonText: 'Experience it',
-    primaryButtonLink: '#experience',
+    primaryButtonLink: '/platform',
     secondaryButtonText: 'Schedule a Demo',
     secondaryButtonLink: '/schedule-demo',
   };
@@ -391,7 +391,7 @@ export async function getProductIntroContent(): Promise<ProductIntroContent> {
     heading: 'Introducing Joy',
     description: 'Your automated Voice AI Agent, designed to optimize and ease administrative burden by supercharging your workflow to be more efficient and empathetic.',
     buttonText: 'Experience It',
-    buttonLink: '#experience',
+    buttonLink: '/platform',
   };
 
   const wpData = await getContent<ProductIntroContent>('product-intro');

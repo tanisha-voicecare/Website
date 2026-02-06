@@ -36,7 +36,7 @@ const DEFAULT_CONTENT: HomepageHeroContent = {
     'Improving patient outcomes',
   ],
   primaryButtonText: 'Experience it',
-  primaryButtonLink: '#experience',
+  primaryButtonLink: '/platform',
   secondaryButtonText: 'Schedule a Demo',
   secondaryButtonLink: '/schedule-demo',
 };
