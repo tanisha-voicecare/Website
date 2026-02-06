@@ -15,7 +15,7 @@ export const metadata: Metadata = generatePageMetadata({
   pathname: '/terms-of-service',
 });
 
-export const revalidate = 600; // Revalidate every 10 minutes
+export const revalidate = 10; // Revalidate every 10 minutes
 
 export default async function TermsOfServicePage() {
   const content = await getTermsContent();

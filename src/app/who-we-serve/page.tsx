@@ -15,7 +15,7 @@ export const metadata: Metadata = generatePageMetadata({
   pathname: '/who-we-serve',
 });
 
-export const revalidate = 600; // Revalidate every 10 minutes
+export const revalidate = 10; // Revalidate every 10 minutes
 
 export default async function WhoWeServePage() {
   const content = await getWhoWeServeContent();

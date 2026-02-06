@@ -19,7 +19,7 @@ export const metadata: Metadata = generatePageMetadata({
   pathname: '/security',
 });
 
-export const revalidate = 600; // Revalidate every 10 minutes
+export const revalidate = 10; // Revalidate every 10 minutes
 
 export default async function SecurityPage() {
   const content = await getSecurityContent();

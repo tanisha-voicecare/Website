@@ -33,7 +33,7 @@ export const viewport: Viewport = {
 // Root Layout
 // ============================================
 
-export const revalidate = 600; // Revalidate layout content every 10 minutes
+export const revalidate = 10; // Revalidate layout content every 10 minutes
 
 export default async function RootLayout({
   children,

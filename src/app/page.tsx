@@ -36,7 +36,7 @@ export const metadata: Metadata = generatePageMetadata({
 // ISR Configuration
 // ============================================
 
-export const revalidate = 600; // Revalidate every 10 minutes
+export const revalidate = 10; // Revalidate every 10 minutes
 
 // ============================================
 // Page Component

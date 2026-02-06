@@ -15,7 +15,7 @@ export const metadata: Metadata = generatePageMetadata({
   pathname: '/partner-with-us',
 });
 
-export const revalidate = 600; // Revalidate every 10 minutes
+export const revalidate = 10; // Revalidate every 10 minutes
 
 export default async function PartnerWithUsPage() {
   const content = await getPartnerContent();
