@@ -621,6 +621,10 @@ export async function getWhoWeServeContent(): Promise<WhoWeServeContent> {
             description: 'Improve patient satisfaction and outcomes by automating insurance interactions, facilitating quicker approvals for cardiac treatments and procedures.',
           },
           {
+            title: 'Pediatrics',
+            description: 'Streamline patient care with automated insurance verification and pre-authorization processes tailored for hematological treatments and diagnostics, ensuring timely access to critical medical interventions.',
+          },
+          {
             title: 'Oncology',
             description: 'Enhance operational efficiency in oncology practices by automating insurance billing and claims management, reducing administrative overhead and optimizing revenue cycles.',
           },
@@ -655,10 +659,6 @@ export async function getWhoWeServeContent(): Promise<WhoWeServeContent> {
           {
             title: 'Anesthesia',
             description: 'Improve revenue cycles while delivering comprehensive urological care and innovative treatment plans.',
-          },
-          {
-            title: 'Pediatrics',
-            description: 'Streamline patient care with automated insurance verification and pre-authorization processes tailored for hematological treatments and diagnostics, ensuring timely access to critical medical interventions.',
           },
         ],
       },
